@@ -19,6 +19,8 @@ sequelize.sync({ force: true })
     .then(() => {
         console.log(`Database created!`)
     })
+
+
 const app = express();
 
 

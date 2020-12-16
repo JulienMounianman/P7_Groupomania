@@ -6,12 +6,12 @@ exports.signup = (req, res) => {
   console.log(req.body.email);
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
-      const newUser = {
+      const newUser = new User({
         email: req.body.email,
         username: req.body.username,
         password: hash,
-      }
-      User.create(newUser)
+      })
+      User.save(newUser)
         .then(() => res.status(201).json({ message: 'Utilisateur créé' }))
         .catch(error => res.status(500).json({ error }));
     })
