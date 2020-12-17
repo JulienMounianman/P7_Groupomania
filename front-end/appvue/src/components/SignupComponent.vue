@@ -26,7 +26,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: 'HelloWorld',
+  name: 'SignupComponent',
   data() {
     return {
       userName: '',
