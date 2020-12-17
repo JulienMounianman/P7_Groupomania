@@ -26,10 +26,40 @@ exports.CreateComment = (req, res) => {
 }
 
 exports.udapteComment = (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+    console.log(userId);
+    db.Comments.findOne({ where: {id: req.params.id }})
+    .then(comment => {
+        if(comment.userId === userId){
+            comment.update({
+                id: comment.id,
+                content: req.body.content,
+                userId: comment.userId,
+                postId: comment.postId
+            })
+            .then(() => res.status(200).json({ message: 'commentaires modifié !' }))
+            .catch(error => res.status(400).json({ error }));
+        }
+    })
 }
 
+
 exports.deleteComment = (req, res) => {
+    db.Comments.deleteOne({ _id: req.params.id }, { ...req.body, id: req.params.id })
+    .then(() => res.status(200).json({ message: 'commentaires supprimé !' }))
+    .catch(error => res.status(400).json({ error }));
 }
 
 exports.getCommentByPost = (req, res) => {
+    db.Comments.findOne({where: { postId: req.params.id }})
+    .then(comments => res.status(200).json(comments))
+    .catch(error => res.status(404).json(error));
+}
+
+exports.getCommentById = (req, res) => {
+    db.Comments.findOne({where: { id: req.params.id }})
+    .then(comments => res.status(200).json(comments))
+    .catch(error => res.status(404).json(error));
 }
