@@ -8,7 +8,7 @@ exports.CreatePost = (req, res) => {
     db.User.findOne({ where: { id: userId } })
         .then(user => {
             if (user) {
-                db.Category.findOne({where: { title: req.body.title }})
+                db.Category.findOne({where: { name: req.body.catagory }})
                     .then(category => {
                         const newPost = new db.Post({
                             title: req.body.title,
