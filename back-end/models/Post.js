@@ -1,33 +1,39 @@
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const sequelize = require('../db');
 const User = require("./User");
-module.exports = (sequelize, DataTypes) => {
-    const Post = sequelize.define('Post', {
-        id: {
-            type: type.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-          },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        content: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        imageUrl: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        created_at: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        updated_at: {
-            type: DataTypes.DATE,
-            allowNull: false
+
+class Post extends Model { }
+
+Post.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: User,
+            key: "userId"
         }
-    })
-    Post.belongsTo(User,{foreignKey: {allowNull: false}})
-    return Post;
-}
+    }
+}, {
+    sequelize,
+    modelName: 'Post'
+});
+
+
+module.exports = Post;
 
