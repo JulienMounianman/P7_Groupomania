@@ -47,8 +47,8 @@ exports.udapteComment = (req, res) => {
 
 
 exports.deleteComment = (req, res) => {
-    db.Comments.deleteOne({ _id: req.params.id }, { ...req.body, id: req.params.id })
-    .then(() => res.status(200).json({ message: 'commentaires supprimé !' }))
+    db.Comments.destroy({ where: {id: req.params.id }})
+    .then(() => res.status(200).json({ message: 'commentaire supprimé !' }))
     .catch(error => res.status(400).json({ error }));
 }
 

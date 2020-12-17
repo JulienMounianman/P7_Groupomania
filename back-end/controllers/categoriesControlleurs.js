@@ -18,10 +18,33 @@ exports.getAllCategory = (req, res) => {
 }
 
 exports.getOneCategory = (req, res) => {
+    db.Category.findOne({ where: { id: req.params.id } })
+        .then(category => res.status(200).json(category))
+        .catch(error => res.status(404).json(error));
 }
+exports.getCategoryByPostId = (req, res) => {
+    db.Category.findOne({ where: { postId: req.params.id } })
+        .then(category => res.status(200).json(category))
+        .catch(error => res.status(404).json(error));
 
+}
 exports.udapteCategory = (req, res) => {
+    db.Category.findOne({ where: { id: req.params.id } })
+        .then(category => {
+            category.update({
+                title: req.body.title,
+                content: req.body.content,
+                imageUrl: req.body.imageUrl,
+                userId: category.id,
+                categoryId: category.id
+            })
+                .then(() => res.status(200).json({ message: 'categorie modifié !' }))
+                .catch(error => res.status(400).json({ error }));
+        })
 }
 
 exports.deleteCategory = (req, res) => {
+    db.Category.destroy({ where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: 'categorie supprimé !' }))
+        .catch(error => res.status(400).json({ error }));
 }
