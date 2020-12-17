@@ -10,4 +10,4 @@ router.post('/', auth, ctrl.CreatePost);
 router.put('/:id', auth, ctrl.udaptePost);
 router.delete('/:id', auth, ctrl.deletePost);
 router.post('/:id/like', auth, ctrl.udapteLikePost);
-module.exports = router
+module.exports = router;
