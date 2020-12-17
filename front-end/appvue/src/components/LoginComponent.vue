@@ -1,10 +1,6 @@
 <template>
   <div class="hello">
-     <form @submit.prevent="signup">
-        <div>
-            <label for="userName">Name</label><br>
-            <input type="text" id="userName" name="userName" v-model="userName" required>
-        </div>
+     <form @submit.prevent="login">
         <div>
             <label for="email">e-mail</label><br>
             <input type="email" id="email" v-model="email" name="email" required>
@@ -23,13 +19,13 @@
   </div>
 </template>
 
+
 <script>
 import axios from "axios";
 export default {
-  name: 'SignupComponent',
+  name: 'LoginComponent',
   data() {
     return {
-      userName: '',
       email:'',
       password: '',
       response: '',
@@ -37,19 +33,19 @@ export default {
     }
   },
   methods: {
-    signup () {
+    login () {
       axios
-        .post('http://localhost:3000/api/auth/signup', {
-          userName: this.userName,
+        .post('http://localhost:3000/api/auth/login', {
           email: this.email,
           password: this.password
         })
         .then(response => {
-          this.success = response.data.message;
-          this.$router.push('forum');
+          this.success = response
+          const token = response.data.token
+          this.$router.push({ name:'Forum', params: {token: token} });
         })
         .catch(error => {
-        this.response = 'Error: ' + error.response.status
+        this.response = 'Error: ' + error
       })
       this.userName = '';
       this.email = '';
@@ -61,18 +57,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>

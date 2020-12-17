@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 
 
 router.get('/', auth, ctrl.getAllPost);
+router.get('/category/:id', auth, ctrl.getPostByCategoryId);
 router.get('/:id', auth, ctrl.getOnePost);
 router.post('/', auth, ctrl.CreatePost);
 router.put('/:id', auth, ctrl.udaptePost);

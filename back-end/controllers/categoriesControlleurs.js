@@ -22,12 +22,7 @@ exports.getOneCategory = (req, res) => {
         .then(category => res.status(200).json(category))
         .catch(error => res.status(404).json(error));
 }
-exports.getCategoryByPostId = (req, res) => {
-    db.Category.findOne({ where: { postId: req.params.id } })
-        .then(category => res.status(200).json(category))
-        .catch(error => res.status(404).json(error));
 
-}
 exports.udapteCategory = (req, res) => {
     db.Category.findOne({ where: { id: req.params.id } })
         .then(category => {
