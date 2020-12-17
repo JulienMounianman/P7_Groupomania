@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const usersRoutes = require('./routes/usersRouter');
 const postsRoutes = require('./routes/postsRouter');
 const categoriesRoutes = require('./routes/categoriesRouter');
+const commentsRoutes = require('./routes/commentsRouter');
 
 const app = express();
 app.use((req, res, next) => {
@@ -16,5 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/auth/', usersRoutes);
 app.use('/api/post/', postsRoutes);
 app.use('/api/category/', categoriesRoutes);
+app.use('/api/comment/', commentsRoutes);
 
 module.exports = app;
