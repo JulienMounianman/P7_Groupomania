@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
-const Post = require('./Post');
 class User extends Model { }
 
 
@@ -27,6 +26,8 @@ User.init({
   modelName: 'User'
 });
 
-User.hasMany(Post, {as: 'Post', foreignKey: 'userId'})
+User.associate = function (models) {
+  models.User.hasMany(models.Post);
+};
 
 module.exports = User;

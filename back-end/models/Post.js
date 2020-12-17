@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
-const User = require("./User");
 
 class Post extends Model { }
 
@@ -24,16 +23,15 @@ Post.init({
     },
     userId: {
         type: DataTypes.INTEGER,
-        references: {
-            model: User,
-            key: "userId"
-        }
     }
 }, {
     sequelize,
     modelName: 'Post'
 });
 
+Post.associate = function (models) {
+    models.Post.belongsTo(models.User, { foreignKey: {allowNull: false}});
+};
 
 module.exports = Post;
 
