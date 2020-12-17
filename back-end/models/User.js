@@ -1,15 +1,5 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('groupomania', 'root', 'password', {
-    host: 'localhost',
-    dialect: 'mysql',
-    pool: {
-        max: 10,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
-})
-
+const sequelize = require('../db');
 class User extends Model {}
 
 
