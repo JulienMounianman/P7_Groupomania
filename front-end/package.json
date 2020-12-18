@@ -2,16 +2,16 @@
   "name": "front-end",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "author": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "main": "main.js",
   "dependencies": {
     "axios": "^0.21.0",
     "vue-axios": "^3.2.0",
     "vue-router": "^3.4.9",
     "vuex": "^3.6.0"
-  }
+  },
+  "license": "ISC"
 }

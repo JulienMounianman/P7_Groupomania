@@ -16,15 +16,13 @@
        <input type="submit" value="Envoyer" />
         <div>
           <h3>Réponse de l'api:</h3>
-          <p v-if="success"> {{ success }}</p>
-          <pre>{{ response }}</pre>
+          <pre>{{  this.$store.state.responseApi }}</pre>
         </div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: 'SignupComponent',
   data() {
@@ -32,28 +30,22 @@ export default {
       userName: '',
       email:'',
       password: '',
-      response: '',
-      success: '',
     }
   },
   methods: {
     signup () {
-      axios
-        .post('http://localhost:3000/api/auth/signup', {
-          userName: this.userName,
-          email: this.email,
-          password: this.password
-        })
-        .then(response => {
-          this.success = response.data.message;
-          this.$router.push('forum');
-        })
-        .catch(error => {
-        this.response = 'Error: ' + error.response.status
-      })
-      this.userName = '';
-      this.email = '';
-      this.password = '';
+      this.$store.dispatch({
+        type: "signup", 
+        userName: this.userName,
+        password: this.password,
+        email:this.email
+        }).then(() => {
+        if( this.$store.state.statusCodeResponse == 201) {
+          this.$router.push({ name:'Login'});
+        }
+      }).catch((err) => {
+        this.response = err;
+      });
     }
   }
 }
