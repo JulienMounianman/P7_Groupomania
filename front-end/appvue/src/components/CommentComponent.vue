@@ -10,7 +10,12 @@
             </div>
         </li>
       </ul>
-    </div>
+      <form class="col-md-12" @submit.prevent="Postcomment">
+        <label for="comment">Ecrire un commentaire</label><br>
+        <textarea name="comment" cols="30" rows="10" v-model="content"></textarea>
+        <input type="submit" value="Envoyer" />
+    </form>
+     </div>
 </template>
 
 <script>
@@ -18,13 +23,15 @@ export default {
   name: 'CommentComponent',
   data() {
     return {
-      name: "",
+      content: "",
       dataPost: [],
       dataUser: [],
-      datatest: []
+      datatest: [],
+      postId: 0
     }
   }, 
   mounted() {
+    this.postId = this.$store.getters.id
     if(this.$store.getters.token == null) {
       this.$router.push({ name:'Login'});
     } 
@@ -47,10 +54,24 @@ export default {
           })
         }).catch(() => {
         }); 
-        console.log(this.datatest)
       }    
     },
-
+    methods: {
+      Postcomment () {
+        this.$store.state.id = this.postId
+        console.log(this.postId)
+        console.log(this.content)
+        this.$store.dispatch({
+          type: "Postcomment", 
+          content: this.content,
+          }).then(() => {
+            if(this.$store.getters.statusCode == 201) {
+              console.log(true)
+            }
+          })
+          
+      } 
+    }
   }
 </script>
 

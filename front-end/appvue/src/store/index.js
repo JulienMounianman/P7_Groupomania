@@ -53,6 +53,9 @@ export default new Vuex.Store({
     getById (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'data', response.data)
+    },
+    Postcomment (state,response) {
+      Vue.set(state, 'statusCodeResponse', response.status)
     }
   },
   actions: {
@@ -134,6 +137,21 @@ export default new Vuex.Store({
           })
           .then(response => {
             commit('getById', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
+    },
+    Postcomment ({commit, state }, {content}) {
+      return axios
+          .post("http://localhost:3000/api/comment/" + state.id,{
+            content: content,
+            headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('Postcomment', response)
           })
           .catch(error => {
             console.log(error);
