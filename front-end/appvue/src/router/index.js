@@ -4,6 +4,7 @@ import Signup from '../views/signup.vue'
 import Forum from '../views/forum.vue'
 import Login from '../views/login.vue'
 import Post from '../views/post.vue'
+import Comment from '../views/comment.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/post',
     name: 'Post',
     component: Post
+  },
+  {
+    path: '/comment',
+    name: 'Comment',
+    component: Comment
   }
 ]
 

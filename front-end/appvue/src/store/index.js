@@ -10,7 +10,8 @@ export default new Vuex.Store({
     responseApi: "",
     statusCodeResponse: 0,
     data: [],
-    id: 0
+    id: 0,
+    url: ""
   },
   getters: {
     statusCode: state => {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
       return state.data;
     },
     id: state => {
+      return state.id;
+    },
+    url: state => {
       return state.id;
     }
   },
@@ -39,7 +43,14 @@ export default new Vuex.Store({
       Vue.set(state, 'data', response.data)
     },
     getPostByCategory (state,response) {
-      console.log(response)
+      Vue.set(state, 'statusCodeResponse', response.status)
+      Vue.set(state, 'data', response.data)
+    },
+    getCommentByPost (state,response) {
+      Vue.set(state, 'statusCodeResponse', response.status)
+      Vue.set(state, 'data', response.data)
+    },
+    getById (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'data', response.data)
     }
@@ -95,6 +106,34 @@ export default new Vuex.Store({
           })
           .then(response => {
             commit('getPostByCategory', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
+    },
+    getCommentByPost ({commit, state}) {
+      return axios
+          .get('http://localhost:3000/api/comment/post/' + state.id,{
+            headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('getCommentByPost', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
+    },
+    getById ({commit, state }) {
+      return axios
+          .get(state.url + state.id,{
+            headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('getById', response)
           })
           .catch(error => {
             console.log(error);
