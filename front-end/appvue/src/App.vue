@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/signup">Signup</router-link> |
-      <router-link to="/login">Login</router-link> 
-    </div>
+    <app-header></app-header>
     <router-view/>
+    <app-footer></app-footer>
   </div>
 </template>
+<script>
 
+import Navbar from '@/views/navbar.vue'
+import Footer from '@/views/footer.vue'
+export default {
+    name: 'app',
+    components: {
+       'app-header': Navbar,
+       'app-footer': Footer,
+    }
+}
+
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

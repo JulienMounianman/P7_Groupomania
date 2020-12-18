@@ -1,8 +1,9 @@
 <template>
-  <div class="forum">
-    <h1>forum</h1>
+  <main class="container">
+    <div class="row">
     <ForumComponent />
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>

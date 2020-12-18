@@ -1,7 +1,9 @@
 <template>
-  <div class="login">
+    <main class="container">
+    <div class="row">
     <LoginComponent />
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>

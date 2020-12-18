@@ -1,21 +1,15 @@
 <template>
-  <div class="hello">
-     <form @submit.prevent="login">
+     <form class="col-md-12" @submit.prevent="login">
         <div>
             <label for="email">e-mail</label><br>
             <input type="email" id="email" v-model="email" name="email" required>
         </div>
         <div>
-            <label for="password">Password</label><br>
+            <label for="password">Mot de passe</label><br>
             <input type="text" id="password" v-model="password" name="password" required>
       </div>
        <input type="submit" value="Envoyer" />
-        <div>
-          <h3>Réponse de l'api:</h3>
-          <pre>{{ statusCode }}</pre>
-        </div>
     </form>
-  </div>
 </template>
 
 

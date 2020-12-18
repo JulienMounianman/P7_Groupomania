@@ -1,9 +1,13 @@
 <template>
    <div>
-      <h3>Réponse de l'api:</h3>
-      <ul id="example-1">
-      <li v-for="item in this.$store.getters.data" :key="item.id">
-         <button v-on:click="redirect($event)" :id="item.id">{{item.name}}</button>
+      <ul>
+      <li  clas="col-md-12" v-for="item in this.$store.getters.data" :key="item.id">
+      <div class="card"  v-on:click="redirect($event)" :id="item.id" >     
+      <div class="card-body">
+        <h2 class="card-title">{{item.name}}</h2>
+        <p class="card-text">{{item.description}}</p>
+      </div>
+      </div>
       </li>
       </ul>
     </div>
@@ -17,10 +21,14 @@ export default {
     }
   }, 
   mounted() {
-      this.$store.dispatch({type: "getAllCategories"}).then(() => {
+      if(this.$store.getters.token == "") {
+        this.$router.push({ name:'Login'});
+      } else {
+        this.$store.dispatch({type: "getAllCategories"}).then(() => {
         console.log(this.$store.getters.data)
-      }).catch(() => {
-      }); 
+        }).catch(() => {
+        }); 
+      }
     },
     methods: {
       redirect: function(event) {

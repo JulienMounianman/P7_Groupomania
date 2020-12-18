@@ -27,11 +27,8 @@ exports.udapteCategory = (req, res) => {
     db.Category.findOne({ where: { id: req.params.id } })
         .then(category => {
             category.update({
-                title: req.body.title,
-                content: req.body.content,
-                imageUrl: req.body.imageUrl,
-                userId: category.id,
-                categoryId: category.id
+                name: req.body.name,
+                description: req.body.description,
             })
                 .then(() => res.status(200).json({ message: 'categorie modifié !' }))
                 .catch(error => res.status(400).json({ error }));

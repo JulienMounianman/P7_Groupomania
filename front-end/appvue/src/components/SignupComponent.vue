@@ -1,8 +1,7 @@
 <template>
-  <div class="hello">
-     <form @submit.prevent="signup">
+     <form class="col-md-12" @submit.prevent="signup">
         <div>
-            <label for="userName">Name</label><br>
+            <label for="userName">Prenom</label><br>
             <input type="text" id="userName" name="userName" v-model="userName" required>
         </div>
         <div>
@@ -10,17 +9,11 @@
             <input type="email" id="email" v-model="email" name="email" required>
         </div>
         <div>
-            <label for="password">Password</label><br>
+            <label for="password">Mot de passe</label><br>
             <input type="text" id="password" v-model="password" name="password" required>
       </div>
        <input type="submit" value="Envoyer" />
-        <div>
-          <h3>Réponse de l'api:</h3>
-          <p>{{  statusCode }}</p><br>
-          <p>{{  token }}</p>
-        </div>
     </form>
-  </div>
 </template>
 
 <script>

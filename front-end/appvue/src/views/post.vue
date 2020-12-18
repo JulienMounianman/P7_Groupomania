@@ -1,8 +1,9 @@
 <template>
-  <div class="post">
-    <h1>Post</h1>
+    <main class="container">
+    <div class="row">
     <PostComponent />
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>

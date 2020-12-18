@@ -1,8 +1,9 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+  <main class="container">
+    <div class="row">
     <SignupComponent />
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
