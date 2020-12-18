@@ -1,7 +1,7 @@
 <template>
    <div>
       <ul id="example-1">
-      <li v-for="item in response" :key="item.id">
+      <li v-for="item in this.$store.getters.data" :key="item.id">
         {{ item.title }}
       </li>
       </ul>
@@ -9,33 +9,21 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
   name: 'PostComponent',
   data() {
     return {
-      token: this.$route.params.token,
-      categoryId: this.$route.params.categoryId,
-      response: "",
-      error: ""
     }
-  }, mounted() {
-    if(this.token == null) {
+  }, 
+  mounted() {
+    if(this.$store.getters.token == null) {
       this.$router.push({ name:'Login'});
     } 
     else {
-        axios
-          .get('http://localhost:3000/api/post/category/' + this.categoryId,{
-            headers: {
-              'Authorization': 'Bearer ' + this.token
-            }
-          })
-          .then(response => {
-            this.response = response.data;
-          })
-          .catch(error => {
-          this.error = error
-        })
+        this.$store.dispatch({type: "getPostByCategory"}).then(() => {
+          console.log(this.$store.getters.data)
+        }).catch(() => {
+        }); 
       }    
     }
   }

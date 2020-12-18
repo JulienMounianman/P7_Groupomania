@@ -12,8 +12,7 @@
        <input type="submit" value="Envoyer" />
         <div>
           <h3>Réponse de l'api:</h3>
-          <p v-if="success"> {{ success }}</p>
-          <pre>{{ response }}</pre>
+          <pre>{{ statusCode }}</pre>
         </div>
     </form>
   </div>
@@ -21,7 +20,6 @@
 
 
 <script>
-import axios from "axios";
 export default {
   name: 'LoginComponent',
   data() {
@@ -29,27 +27,22 @@ export default {
       email:'',
       password: '',
       response: '',
-      success: '',
+    }
+  },
+  computed: {
+    statusCode: function () {
+      return this.$store.getters.statusCode
     }
   },
   methods: {
     login () {
-      axios
-        .post('http://localhost:3000/api/auth/login', {
-          email: this.email,
-          password: this.password
-        })
-        .then(response => {
-          this.success = response
-          const token = response.data.token
-          this.$router.push({ name:'Forum', params: {token: token} });
-        })
-        .catch(error => {
-        this.response = 'Error: ' + error
-      })
-      this.userName = '';
-      this.email = '';
-      this.password = '';
+      this.$store.dispatch({
+      type: "login", 
+      password: this.password,
+      email: this.email
+      }).then(() => {
+        this.$router.push({ name:'Forum'});
+      }).catch(() => {}); 
     }
   }
 }

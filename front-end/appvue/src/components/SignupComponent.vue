@@ -16,7 +16,8 @@
        <input type="submit" value="Envoyer" />
         <div>
           <h3>Réponse de l'api:</h3>
-          <pre>{{  this.$store.state.responseApi }}</pre>
+          <p>{{  statusCode }}</p><br>
+          <p>{{  token }}</p>
         </div>
     </form>
   </div>
@@ -32,6 +33,14 @@ export default {
       password: '',
     }
   },
+  computed: {
+    statusCode: function () {
+      return this.$store.getters.statusCode
+    },
+     token: function () {
+      return this.$store.getters.token
+    }
+  },
   methods: {
     signup () {
       this.$store.dispatch({
@@ -40,12 +49,16 @@ export default {
         password: this.password,
         email:this.email
         }).then(() => {
-        if( this.$store.state.statusCodeResponse == 201) {
-          this.$router.push({ name:'Login'});
+        if(this.$store.getters.statusCode == 201) {
+          this.$store.dispatch({
+            type: "login", 
+            password: this.password,
+            email: this.email
+            }).then(() => {
+              this.$router.push({ name:'Forum'});
+            }).catch(() => {});         
         }
-      }).catch((err) => {
-        this.response = err;
-      });
+      }).catch(() => {});
     }
   }
 }

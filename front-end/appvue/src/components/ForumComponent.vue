@@ -1,9 +1,8 @@
 <template>
    <div>
       <h3>Réponse de l'api:</h3>
-      <p>{{ error }}</p>
       <ul id="example-1">
-      <li v-for="item in this.response" :key="item.id">
+      <li v-for="item in this.$store.getters.data" :key="item.id">
          <button v-on:click="redirect($event)" :id="item.id">{{item.name}}</button>
       </li>
       </ul>
@@ -11,35 +10,24 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
   name: 'ForumComponent',
   data() {
     return {
-      token: this.$route.params.token,
-      response: "",
-      error: "",
     }
-  }, mounted() {
-      axios
-        .get('http://localhost:3000/api/category/',{
-          headers: {
-            'Authorization': 'Bearer ' + this.token
-          }
-        })
-        .then(response => {
-          this.response = response.data;
-        })
-        .catch(error => {
-        this.error = error
-      })
+  }, 
+  mounted() {
+      this.$store.dispatch({type: "getAllCategories"}).then(() => {
+        console.log(this.$store.getters.data)
+      }).catch(() => {
+      }); 
     },
     methods: {
       redirect: function(event) {
-        this.$router.push({ name:'Post', params: {token: this.token, categoryId: event.currentTarget.id } });
+        this.$store.state.id = event.currentTarget.id;
+        this.$router.push({ name:'Post'});
       }
-    }
-
+    },
   }
 </script>
 
