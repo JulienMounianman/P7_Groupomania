@@ -1,18 +1,18 @@
 <template>
      <form class="col-md-12" @submit.prevent="signup">
-        <div>
-            <label for="userName">Prenom</label><br>
-            <input type="text" id="userName" name="userName" v-model="userName" required>
+        <div class="form-group">
+            <label for="userName">Prénom</label>
+            <input class="form-control" type="text" id="userName" name="userName" v-model="userName" required>
         </div>
-        <div>
-            <label for="email">e-mail</label><br>
-            <input type="email" id="email" v-model="email" name="email" required>
+        <div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input class="form-control" type="email" id="email" v-model="email" name="email" required>
         </div>
-        <div>
-            <label for="password">Mot de passe</label><br>
-            <input type="text" id="password" v-model="password" name="password" required>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input class="form-control" type="text" id="password" v-model="password" name="password" required>
       </div>
-       <input type="submit" value="Envoyer" />
+       <input type="submit" class="btn btn-secondary" value="Envoyer" />
     </form>
 </template>
 

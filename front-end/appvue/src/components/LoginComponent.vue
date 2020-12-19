@@ -1,14 +1,15 @@
+import ForumComponent from '@/components/ForumComponent.vue';
 <template>
      <form class="col-md-12" @submit.prevent="login">
-        <div>
-            <label for="email">e-mail</label><br>
-            <input type="email" id="email" v-model="email" name="email" required>
+        <div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input type="email" class="form-control" id="email" v-model="email" name="email" required>
         </div>
-        <div>
-            <label for="password">Mot de passe</label><br>
-            <input type="text" id="password" v-model="password" name="password" required>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="text" class="form-control" id="password" v-model="password" name="password" required>
       </div>
-       <input type="submit" value="Envoyer" />
+       <input type="submit" class="btn btn-secondary" value="connexion" />
     </form>
 </template>
 
@@ -24,7 +25,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$store.getters.token);
   },
   methods: {
     login () {
@@ -39,7 +39,6 @@ export default {
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
