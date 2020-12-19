@@ -31,7 +31,7 @@ export default {
     },
     methods: {
       redirect: function(event) {
-        this.$store.state.id = event.currentTarget.id;
+        this.$store.state.categoryId = event.currentTarget.id;
         this.$router.push({ name:'Post'});
       }
     },

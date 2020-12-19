@@ -1,17 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
-    token: "",
+    token: localStorage.getItem('token'),
     responseApi: "",
     statusCodeResponse: 0,
     data: [],
     id: 0,
-    url: ""
+    url: "",
+    postId: 0,
+    categoryId:0
   },
   getters: {
     statusCode: state => {
@@ -26,6 +30,12 @@ export default new Vuex.Store({
     id: state => {
       return state.id;
     },
+    postId: state => {
+      return state.postId;
+    },
+    categoryId: state => {
+      return state.categoryId;
+    },
     url: state => {
       return state.url;
     }
@@ -37,10 +47,15 @@ export default new Vuex.Store({
     setTokenStatus (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'token', response.data.token)
+      localStorage.setItem('token', response.data.token)
     },
     setDataStatus (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'data', response.data)
+    },
+    disconnect(state) {
+      localStorage.clear();
+      Vue.set(state, 'token', null);
     }
   },
   actions: {

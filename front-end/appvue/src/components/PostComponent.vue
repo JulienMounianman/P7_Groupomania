@@ -25,6 +25,7 @@ export default {
       this.$router.push({ name:'Login'});
     } 
     else {
+      this.$store.state.id = this.$store.getters.categoryId
       this.$store.state.url  = "http://localhost:3000/api/post/category/"
         this.$store.dispatch({type: "getById"}).then(() => {
         }).catch(() => {
@@ -33,7 +34,7 @@ export default {
     },
     methods: {
       redirect: function(event) {
-        this.$store.state.id = event.currentTarget.id;
+        this.$store.state.postId = event.currentTarget.id;
         this.$router.push({ name:'Comment'});
       }
     }

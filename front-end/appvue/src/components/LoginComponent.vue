@@ -23,10 +23,8 @@ export default {
       response: '',
     }
   },
-  computed: {
-    statusCode: function () {
-      return this.$store.getters.statusCode
-    }
+  mounted () {
+    console.log(this.$store.getters.token);
   },
   methods: {
     login () {

@@ -33,15 +33,16 @@ export default {
       dataPost: [],
       dataUser: [],
       datatest: [],
-      postId: 0
+      saveId:0
     }
   }, 
   mounted() {
-    this.postId = this.$store.getters.id
+    console.log(this.$store.getters.postId);
     if(this.$store.getters.token == null) {
       this.$router.push({ name:'Login'});
     } 
     else {
+        this.$store.state.id = this.$store.getters.postId
         this.$store.state.url  = "http://localhost:3000/api/comment/post/"
         this.$store.dispatch({type: "getById"}).then(() => {
           this.$store.getters.data.forEach(element => {
