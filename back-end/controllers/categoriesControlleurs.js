@@ -12,7 +12,11 @@ exports.CreateCategory = (req, res) => {
 }
 
 exports.getAllCategory = (req, res) => {
-    db.Category.findAll()
+    db.Category.findAll({
+        order: [
+            'name', 'ASC'
+        ]
+    })
         .then(Category => res.status(200).json(Category))
         .catch(error => res.status(404).json(error));
 }

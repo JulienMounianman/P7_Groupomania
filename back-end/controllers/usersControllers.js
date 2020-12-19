@@ -66,7 +66,10 @@ exports.UpdateProfil = (req, res) => {
 }
 
 exports.deleteProfil = (req, res) => {
-  db.User.destroy({ where: {id: req.params.id }})
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+  const userId = decodedToken.userId;
+  db.User.destroy({ where: {id: userId }})
   .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
   .catch(error => res.status(400).json({ error }));
 }

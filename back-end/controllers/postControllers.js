@@ -5,24 +5,18 @@ exports.CreatePost = (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
-    db.User.findOne({ where: { id: userId } })
-        .then(user => {
-            if (user) {
-                db.Category.findOne({ where: { name: req.body.catagory } })
-                    .then(category => {
-                        const newPost = new db.Post({
-                            title: req.body.title,
-                            content: req.body.content,
-                            imageUrl: req.body.imageUrl,
-                            userId: user.id,
-                            categoryId: category.id
-                        })
-                        newPost.save()
-                            .then(newPost => res.status(201).json(newPost))
-                            .catch(error => res.status(500).json(error));
-                    })
-                    .catch(error => res.status(404).json(error));
-            }
+
+    db.Category.findOne({ where: { name: req.body.name } })
+        .then(category => {
+            const newPost = new db.Post({
+                title: req.body.title,
+                content: req.body.content,
+                userId: userId,
+                categoryId: category.id
+            })
+            newPost.save()
+                .then(newPost => res.status(201).json(newPost))
+                .catch(error => res.status(500).json(error));
         })
         .catch(error => res.status(404).json(error));
 }
@@ -45,7 +39,6 @@ exports.udaptePost = (req, res) => {
             post.update({
                 title: req.body.title,
                 content: req.body.content,
-                imageUrl: req.body.imageUrl,
                 userId: post.id,
                 categoryId: post.id
             })
@@ -55,14 +48,21 @@ exports.udaptePost = (req, res) => {
 }
 
 exports.deletePost = (req, res) => {
-    db.Post.destroy({ where: {id: req.params.id }})
-    .then(() => res.status(200).json({ message: 'post supprimé !' }))
-    .catch(error => res.status(400).json({ error }));
+    db.Post.destroy({ where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: 'post supprimé !' }))
+        .catch(error => res.status(400).json({ error }));
 }
 
 
 exports.getPostByCategoryId = (req, res) => {
-    db.Post.findAll({ where: { categoryId: req.params.id } })
+    db.Post.findAll({
+        where: {
+            categoryId: req.params.id
+        },
+        order: [
+            ['updatedAt', 'DESC']
+        ]
+    })
         .then(post => res.status(200).json(post))
         .catch(error => res.status(404).json(error));
 
