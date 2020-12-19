@@ -1,6 +1,6 @@
 import ForumComponent from '@/components/ForumComponent.vue';
 <template>
-     <form class="col-md-12" @submit.prevent="login">
+     <form class="col-md-12"  @submit.prevent="login">
         <div class="form-group">
             <label for="email">Adresse Email</label>
             <input type="email" class="form-control" id="email" v-model="email" name="email" required>
@@ -39,6 +39,9 @@ export default {
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
+
+
+
 </style>

@@ -12,7 +12,7 @@
             <label for="password">Mot de passe</label>
             <input class="form-control" type="text" id="password" v-model="password" name="password" required>
       </div>
-       <input type="submit" class="btn btn-secondary" value="Envoyer" />
+       <input type="submit" class="btn btn-secondary" value="s'inscrire" />
     </form>
 </template>
 

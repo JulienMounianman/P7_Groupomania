@@ -43,5 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+nav {
+  margin-bottom: 2%; ;
+}
 </style>
