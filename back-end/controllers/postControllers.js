@@ -55,14 +55,7 @@ exports.deletePost = (req, res) => {
 
 
 exports.getPostByCategoryId = (req, res) => {
-    db.Post.findAll({
-        where: {
-            categoryId: req.params.id
-        },
-        order: [
-            ['updatedAt', 'DESC']
-        ]
-    })
+    db.Post.findAll({ where: { categoryId: req.params.id }, order: [['updatedAt', 'DESC']]})
         .then(post => res.status(200).json(post))
         .catch(error => res.status(404).json(error));
 

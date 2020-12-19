@@ -26,10 +26,18 @@ exports.login = (req, res) => {
     .then(user => {
       bcrypt.compare(req.body.password, user.password, function (err, result) {
         if (result) {
-          res.status(200).json({
-            userId: user.id,
-            token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' })
-          })
+          if(user.isAdmin === true) {
+            res.status(200).json({
+              userId: user.id,
+              token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
+              isAdmin: user.isAdmin
+            })
+          } else {
+            res.status(200).json({
+              userId: user.id,
+              token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' })
+            })
+          }
         } else {
           res.status(401).json(err);
         }
