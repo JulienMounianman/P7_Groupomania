@@ -27,43 +27,21 @@ export default new Vuex.Store({
       return state.id;
     },
     url: state => {
-      return state.id;
+      return state.url;
     }
   },
   mutations: {
-    signup (state, response) {
+    setStatus (state, response) {
       Vue.set(state, 'statusCodeResponse', response.status)
     },
-    login (state,response) {
+    setTokenStatus (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'token', response.data.token)
     },
-    getAllCategories (state,response) {
+    setDataStatus (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'data', response.data)
-    },
-    getPostByCategory (state,response) {
-      Vue.set(state, 'statusCodeResponse', response.status)
-      Vue.set(state, 'data', response.data)
-    },
-    getCommentByPost (state,response) {
-      Vue.set(state, 'statusCodeResponse', response.status)
-      Vue.set(state, 'data', response.data)
-    },
-    getById (state,response) {
-      Vue.set(state, 'statusCodeResponse', response.status)
-      Vue.set(state, 'data', response.data)
-    },
-    Postcomment (state,response) {
-      Vue.set(state, 'statusCodeResponse', response.status)
-    },
-    getAll (state,response) {
-      Vue.set(state, 'statusCodeResponse', response.status)
-      Vue.set(state, 'data', response.data)
-    },
-    editProfil(state,response) {
-      Vue.set(state, 'statusCodeResponse', response.status)
-    },
+    }
   },
   actions: {
     signup ({ commit },{userName,password,email}) {
@@ -74,7 +52,7 @@ export default new Vuex.Store({
           password: password
         })
         .then(response => {
-          commit('signup', response)
+          commit('setStatus', response)
         })
         .catch(error => { 
           console.log(error);
@@ -87,52 +65,10 @@ export default new Vuex.Store({
           password: password
         })
         .then(response => {
-          commit('login', response)
+          commit('setTokenStatus', response)
         })
         .catch(error => { 
           console.log(error);
-        })
-    },
-    getAllCategories ({ commit, state }) {
-      return axios
-        .get('http://localhost:3000/api/category/',{
-          headers: {
-            'Authorization': 'Bearer ' + state.token
-          }
-        })
-        .then(response => {
-          commit('getAllCategories', response)
-        })
-        .catch(error => {
-          console.log(error);
-      })
-    },
-    getPostByCategory ({commit, state}) {
-      return axios
-          .get('http://localhost:3000/api/post/category/' + state.id,{
-            headers: {
-              'Authorization': 'Bearer ' + state.token
-            }
-          })
-          .then(response => {
-            commit('getPostByCategory', response)
-          })
-          .catch(error => {
-            console.log(error);
-        })
-    },
-    getCommentByPost ({commit, state}) {
-      return axios
-          .get('http://localhost:3000/api/comment/post/' + state.id,{
-            headers: {
-              'Authorization': 'Bearer ' + state.token
-            }
-          })
-          .then(response => {
-            commit('getCommentByPost', response)
-          })
-          .catch(error => {
-            console.log(error);
         })
     },
     getById ({commit, state }) {
@@ -143,7 +79,7 @@ export default new Vuex.Store({
             }
           })
           .then(response => {
-            commit('getById', response)
+            commit('setDataStatus', response)
           })
           .catch(error => {
             console.log(error);
@@ -158,7 +94,7 @@ export default new Vuex.Store({
             }
           })
           .then(response => {
-            commit('Postcomment', response)
+            commit('setStatus', response)
           })
           .catch(error => {
             console.log(error);
@@ -173,7 +109,7 @@ export default new Vuex.Store({
             }
           })
           .then(response => {
-            commit('getAll', response)
+            commit('setDataStatus', response)
           })
           .catch(error => {
             console.log(error);
@@ -188,7 +124,7 @@ export default new Vuex.Store({
         }
       })
       .then(response => {
-        commit('editProfil', response)
+        commit('setStatus', response)
       })
       .catch(error => {
         console.log(error);

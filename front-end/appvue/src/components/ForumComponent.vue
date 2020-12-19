@@ -24,9 +24,9 @@ export default {
       if(this.$store.getters.token == "") {
         this.$router.push({ name:'Login'});
       } else {
-        this.$store.dispatch({type: "getAllCategories"}).then(() => {
-        }).catch(() => {
-        }); 
+        this.$store.state.url  = "http://localhost:3000/api/category/"
+        this.$store.dispatch({type: "getAll"}).then(() => {
+        })
       }
     },
     methods: {

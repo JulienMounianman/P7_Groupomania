@@ -25,7 +25,8 @@ export default {
       this.$router.push({ name:'Login'});
     } 
     else {
-        this.$store.dispatch({type: "getPostByCategory"}).then(() => {
+      this.$store.state.url  = "http://localhost:3000/api/post/category/"
+        this.$store.dispatch({type: "getById"}).then(() => {
         }).catch(() => {
         }); 
       }    
