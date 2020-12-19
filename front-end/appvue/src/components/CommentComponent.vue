@@ -49,7 +49,7 @@ export default {
           });
           this.dataPost.forEach(e => {
             this.$store.state.id = e.userId
-            this.$store.state.url  = "http://localhost:3000/api/auth/profile/"
+            this.$store.state.url  = "http://localhost:3000/api/auth/profil/"
             this.$store.dispatch({type: "getById"}).then(() => {
               const PostUser = new Object({
                 content: e.content,

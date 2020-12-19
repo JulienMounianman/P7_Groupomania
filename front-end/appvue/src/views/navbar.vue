@@ -5,17 +5,19 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-  <ul class="navbar-nav">
+  <ul class="navbar-nav" v-if="this.$store.getters.token == ''">
     <li class="nav-item">
       <a class="nav-link" href="#"><router-link class="navbar-brand" to="/login">Login</router-link></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/signup">Signup</router-link></a>
     </li>
-    <li v-if="this.$store.getters.token !== ''" class="nav-item">
+  </ul>
+  <ul class="navbar-nav" v-if="this.$store.getters.token !== ''">
+    <li class="nav-item">
       <a class="nav-link" href="#"><router-link  class=" text-white navbar-brand" to="/forum">Forum</router-link></a>
     </li>
-    <li v-if="this.$store.getters.token !== ''" class="nav-item">
+    <li class="nav-item">
       <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/profil">Profil</router-link></a>
     </li>
   </ul>
