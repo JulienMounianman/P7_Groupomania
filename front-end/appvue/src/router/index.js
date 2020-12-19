@@ -5,6 +5,7 @@ import Forum from '../views/forum.vue'
 import Login from '../views/login.vue'
 import Post from '../views/post.vue'
 import Comment from '../views/comment.vue'
+import Profil from '../views/profil.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/comment',
     name: 'Comment',
     component: Comment
+  },
+  {
+    path: '/profil',
+    name: 'Profil',
+    component: Profil
   }
 ]
 

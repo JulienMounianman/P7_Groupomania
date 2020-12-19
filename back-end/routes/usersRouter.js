@@ -5,6 +5,6 @@ const password_middleware = require('../middleware/password_middleware')
 
 router.post('/signup', password_middleware, ctrl.signup);
 router.post('/login', ctrl.login);
-router.get('/profile/:id', ctrl.getProfile);
-router.put('/profile/:id', ctrl.UpdateProfile);
+router.get('/profil', ctrl.getProfil);
+router.put('/profil', ctrl.UpdateProfil);
 module.exports = router;

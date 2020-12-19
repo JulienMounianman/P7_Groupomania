@@ -40,31 +40,32 @@ exports.login = (req, res) => {
     });
 }
 
-exports.getProfile = (req, res) => {
-  db.User.findOne({ where: { id: req.params.id } })
+exports.getProfil = (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+  const userId = decodedToken.userId;
+  db.User.findOne({ where: { id: userId } })
     .then(user => res.status(200).json(user))
     .catch(error => res.status(404).json(error));
 }
 
-exports.UpdateProfile = (req, res) => {
-  db.Comments.findOne({ where: { id: req.params.id } })
+exports.UpdateProfil = (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+  const userId = decodedToken.userId;
+  db.User.findOne({ where: { id: userId } })
     .then(user => {
-      bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-          user.update({
-            id: user.id,
-            email: req.body.email,
-            userName: req.body.userName,
-            password: hash,
-          })
-            .then(() => res.status(200).json({ message: 'profile modifié !' }))
-            .catch(error => res.status(400).json({ error }));
-        })
+      user.update({
+        email: req.body.email,
+        userName: req.body.userName,
+      })
+        .then(() => res.status(200).json({ message: 'profil modifié !' }))
+        .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
 }
 
-exports.deleteProfile = (req, res) => {
+exports.deleteProfil = (req, res) => {
   db.User.destroy({ where: {id: req.params.id }})
   .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
   .catch(error => res.status(400).json({ error }));

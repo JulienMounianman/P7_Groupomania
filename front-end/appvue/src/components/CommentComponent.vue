@@ -1,20 +1,26 @@
 <template>
      <div>
-      <ul>
-        <li clas="col-md-12" v-for="item in this.datatest" :key="item.id">
-            <div class="card">     
-                <div class="card-body">
-                  <h2 class="card-title"  id="item.id"> {{ item.userName }}</h2>
-                  <p class="card-text">{{item.content}}</p>
-                </div>
-            </div>
-        </li>
-      </ul>
-      <form class="col-md-12" @submit.prevent="Postcomment">
-        <label for="comment">Ecrire un commentaire</label><br>
-        <textarea name="comment" cols="30" rows="10" v-model="content"></textarea>
-        <input type="submit" value="Envoyer" />
-    </form>
+       <div>
+        <form class="text-center" @submit.prevent="Postcomment">
+          <div>
+          <label for="comment">Ecrire un commentaire:</label><br>
+          <textarea class="margin" name="comment" cols="50" rows="5" v-model="content"></textarea>
+          </div>
+          <input type="submit" class="btn btn-secondary" value="Envoyer" />
+        </form>
+      </div>
+      <div>
+        <ul>
+          <li class=" margin col-md-12" v-for="item in this.datatest" :key="item.id">
+              <div class="card">     
+                  <div class="card-body">
+                    <h2 class="card-title"  id="item.id"> {{ item.userName }}</h2>
+                    <p class="card-text">{{item.content}}</p>
+                  </div>
+              </div>
+          </li>
+        </ul>
+      </div>
      </div>
 </template>
 
@@ -79,5 +85,8 @@ export default {
 <style scoped>
 ul {
   list-style:none;
+}
+.margin {
+  margin: auto;
 }
 </style>

@@ -12,8 +12,11 @@
     <li class="nav-item">
       <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/signup">Signup</router-link></a>
     </li>
-    <li  v-if="this.$store.getters.token !== ''" class="nav-item">
+    <li v-if="this.$store.getters.token !== ''" class="nav-item">
       <a class="nav-link" href="#"><router-link  class=" text-white navbar-brand" to="/forum">Forum</router-link></a>
+    </li>
+    <li v-if="this.$store.getters.token !== ''" class="nav-item">
+      <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/profil">Profil</router-link></a>
     </li>
   </ul>
   </div>

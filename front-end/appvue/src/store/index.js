@@ -56,7 +56,14 @@ export default new Vuex.Store({
     },
     Postcomment (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
-    }
+    },
+    getAll (state,response) {
+      Vue.set(state, 'statusCodeResponse', response.status)
+      Vue.set(state, 'data', response.data)
+    },
+    editProfil(state,response) {
+      Vue.set(state, 'statusCodeResponse', response.status)
+    },
   },
   actions: {
     signup ({ commit },{userName,password,email}) {
@@ -144,9 +151,9 @@ export default new Vuex.Store({
     },
     Postcomment ({commit, state }, {content}) {
       return axios
-          .post("http://localhost:3000/api/comment/" + state.id,{
-            content: content,
-            headers: {
+          .post("http://localhost:3000/api/comment/" + state.id,{content: content },
+            {
+              headers: {
               'Authorization': 'Bearer ' + state.token
             }
           })
@@ -156,6 +163,36 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error);
         })
+    },
+    getAll ({commit, state }) {
+      return axios
+          .get(state.url,
+            {
+              headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('getAll', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
+    },
+    editProfil ({commit, state }, {userName, email}) {
+      return axios
+      .put(state.url,{userName: userName, email: email },
+        {
+          headers: {
+          'Authorization': 'Bearer ' + state.token
+        }
+      })
+      .then(response => {
+        commit('editProfil', response)
+      })
+      .catch(error => {
+        console.log(error);
+    })
     }
   },
   modules: {
