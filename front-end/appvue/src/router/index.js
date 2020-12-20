@@ -7,6 +7,7 @@ import Post from '../views/post.vue'
 import Comment from '../views/comment.vue'
 import Profil from '../views/profil.vue'
 import CreatePost from '../views/createPost.vue'
+import CreateCategory from '../views/createCategory.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/createPost',
     name: 'CreatePost',
     component: CreatePost
+  },
+  {
+    path: '/createCategory',
+    name: 'createCategory',
+    component: CreateCategory
   }
 ]
 

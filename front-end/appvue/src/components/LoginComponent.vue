@@ -29,7 +29,6 @@ export default {
   },
   mounted () {
     this.$store.state.error = "";
-    console.log(this.$store.state.error);
   },
   methods: {
     login () {

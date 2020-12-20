@@ -33,7 +33,6 @@ export default {
   mounted() {         
     this.$store.state.url  = "http://localhost:3000/api/auth/profil"
     this.$store.dispatch({type: "getAll"}).then(() => {
-        console.log(this.$store.getters.data);
         this.userName = this.$store.getters.data.userName;
         this.email = this.$store.getters.data.email;
     })

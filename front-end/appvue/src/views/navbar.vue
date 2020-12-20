@@ -29,7 +29,7 @@
   </ul>
   <ul class="navbar-nav " v-if="this.$store.getters.isAdmin === true">
     <li class="nav-item">
-      <a class="nav-link" href="#"><router-link class="text-white" to="/category">Ajouté une Catégorie</router-link></a>
+      <a class="nav-link" href="#"><router-link class="text-white" to="/createCategory">Ajouté une Catégorie</router-link></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#"><router-link class="text-white" to="/users">Liste des Utilisateurs</router-link></a>

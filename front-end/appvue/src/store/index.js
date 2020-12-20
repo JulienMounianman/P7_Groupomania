@@ -188,6 +188,21 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error);
         })
+    },
+    createCategory ({commit, state }, {name, description}) {
+      return axios
+      .post("http://localhost:3000/api/category/", {name: name, description: description },
+            {
+              headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('setStatus', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
     }
   },
   modules: {
