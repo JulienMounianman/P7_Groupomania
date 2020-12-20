@@ -8,6 +8,7 @@ import Comment from '../views/comment.vue'
 import Profil from '../views/profil.vue'
 import CreatePost from '../views/createPost.vue'
 import CreateCategory from '../views/createCategory.vue'
+import EditCategory from '../views/editCategory.vue'
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,13 @@ const routes = [
   {
     path: '/forum',
     name: 'Forum',
-    component: Forum
+    component: Forum,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    }
   },
   {
     path: '/login',
@@ -30,27 +37,70 @@ const routes = [
   {
     path: '/post',
     name: 'Post',
-    component: Post
+    component: Post,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    }
   },
   {
     path: '/comment',
     name: 'Comment',
-    component: Comment
+    component: Comment,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    }
   },
   {
     path: '/profil',
     name: 'Profil',
-    component: Profil
+    component: Profil,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    }
   },
   {
     path: '/createPost',
     name: 'CreatePost',
-    component: CreatePost
+    component: CreatePost,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    }
   },
   {
     path: '/createCategory',
     name: 'createCategory',
-    component: CreateCategory
+    component: CreateCategory,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    },
+    
+  },
+  {
+    path: '/editCategory',
+    name: 'editCategory',
+    component: EditCategory,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      next()
+    },
+    
   }
 ]
 

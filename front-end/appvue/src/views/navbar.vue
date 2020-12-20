@@ -4,7 +4,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav" v-if="this.$store.getters.token == null">
     <li class="nav-item">
       <a class="nav-link" href="#"><router-link class="navbar-brand" to="/login">Login</router-link></a>
@@ -13,7 +13,7 @@
       <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/signup">Signup</router-link></a>
     </li>
   </ul>
-  <ul class="navbar-nav " v-if="this.$store.getters.token !== null">
+  <ul class="navbar-nav mr-auto" v-if="this.$store.getters.token !== null">
     <li class="nav-item">
       <a class="nav-link"  href="#"><router-link class="text-white" to="/forum">Forum</router-link></a>
     </li>
@@ -26,14 +26,16 @@
       <li class="nav-item">
       <a class="nav-link" v-on:click="disconnect()" href="#">Déconnexion</a>
      </li>
-  </ul>
-  <ul class="navbar-nav " v-if="this.$store.getters.isAdmin === true">
-    <li class="nav-item">
-      <a class="nav-link" href="#"><router-link class="text-white" to="/createCategory">Ajouté une Catégorie</router-link></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><router-link class="text-white" to="/users">Liste des Utilisateurs</router-link></a>
-    </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Administration
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item" href="#"><router-link  to="/createCategory">Ajouter une Catégorie</router-link></a>
+      <a class="dropdown-item" href="#"><router-link  to="/editCategory">Editer une Catégorie</router-link></a>
+      <a class="dropdown-item" href="#"><router-link  to="/users">Liste des Utilisateurs</router-link></a>
+    </div>
+   </li>
   </ul>
   </div>
 </header>
@@ -55,7 +57,6 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  overflow: hidden;
   background-color: #333;
   position: fixed; 
   top: 0; 

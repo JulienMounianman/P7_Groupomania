@@ -8,4 +8,5 @@ router.post('/login', ctrl.login);
 router.get('/profil', ctrl.getProfil);
 router.get('/profil/:id', ctrl.getUserById);
 router.put('/profil', ctrl.UpdateProfil);
+router.put('/:id', ctrl.deleteUser);
 module.exports = router;

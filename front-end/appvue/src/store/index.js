@@ -64,6 +64,7 @@ export default new Vuex.Store({
       Vue.set(state, 'data', response.data)
     },
     disconnect(state) {
+      state.isAdmin = false;
       localStorage.clear();
       Vue.set(state, 'token', null);
     },
@@ -174,9 +175,9 @@ export default new Vuex.Store({
             console.log(error);
         })
     },
-    editPost ({commit, state }, {title, content, categoryId}) {
+    editPost ({commit, state }, {title, content, postId, categoryId}) {
       return axios
-      .put("http://localhost:3000/api/post/" + categoryId ,{title: title, content: content, categoryId: categoryId },
+      .put("http://localhost:3000/api/post/" + postId ,{title: title, content: content, categoryId: categoryId },
             {
               headers: {
               'Authorization': 'Bearer ' + state.token
@@ -203,8 +204,24 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error);
         })
+    },
+    editCategory ({commit, state }, {name, description, id}) {
+      return axios
+      .put("http://localhost:3000/api/category/" + id , { name: name, description: description },
+            {
+              headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('setStatus', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
     }
   },
+  
   modules: {
   }
 })

@@ -8,6 +8,7 @@
         <h2 class="card-title">{{item.name}}</h2>
         <p class="card-text">{{item.description}}</p>
         <button class="btn btn-primary" :id="item.id" v-on:click="redirect($event)" >Voir les articles</button>
+        <button class="btn btn-warning" :id="item.id" v-on:click="editCategory($event)" > Editer </button>
       </div>
       </div>
       </li>
@@ -35,6 +36,10 @@ export default {
       redirect: function(event) {
         this.$store.state.categoryId = event.currentTarget.id;
         this.$router.push({ name:'Post'});
+      },
+      editCategory: function(event) {
+        this.$store.state.categoryId = event.currentTarget.id;
+        this.$router.push({ name:'editCategory'});
       }
     },
   }
@@ -48,5 +53,8 @@ ul {
 .margin {
   margin:auto;
   margin-top: 10%;
+}
+button {
+  margin: 1% 1% 1% 1%;
 }
 </style>

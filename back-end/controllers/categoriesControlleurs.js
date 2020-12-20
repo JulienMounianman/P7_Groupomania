@@ -12,7 +12,7 @@ exports.CreateCategory = (req, res) => {
 }
 
 exports.getAllCategory = (req, res) => {
-    db.Category.findAll({ order: [['name', 'ASC']]})
+    db.Category.findAll({ order: [['name', 'ASC']] })
         .then(Category => res.status(200).json(Category))
         .catch(error => res.status(404).json(error));
 }
@@ -36,7 +36,18 @@ exports.udapteCategory = (req, res) => {
 }
 
 exports.deleteCategory = (req, res) => {
-    db.Category.destroy({ where: { id: req.params.id } })
-        .then(() => res.status(200).json({ message: 'categorie supprimé !' }))
-        .catch(error => res.status(400).json({ error }));
+    db.Post.findAll({ where: { categoryId: req.params.id } })
+        .then((result) => {
+            result.forEach(element => {
+                db.comment.destroy({ where: { postId: element.id } })
+                    .then(() => {
+                    });
+            })
+        })
+    db.Post.destroy({ where: { categoryId: req.params.id } })
+        .then(() => {
+            db.Category.destroy({ where: { id: req.params.id } })
+                .then(() => res.status(200).json({ message: 'categorie supprimé !' }))
+                .catch(error => res.status(400).json({ error }));
+        })
 }
