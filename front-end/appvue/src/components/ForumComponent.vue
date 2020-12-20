@@ -1,11 +1,13 @@
 <template>
-   <div>
+   <div class="margin">
+     <h1 class="text-center">Forum</h1>
       <ul>
       <li class="col-md-12" v-for="item in this.$store.getters.data" :key="item.id">
-      <div class="card"  v-on:click="redirect($event)" :id="item.id" >     
+      <div class="card"  >     
       <div class="card-body">
         <h2 class="card-title">{{item.name}}</h2>
         <p class="card-text">{{item.description}}</p>
+        <button class="btn btn-primary" :id="item.id" v-on:click="redirect($event)" >Voir les articles</button>
       </div>
       </div>
       </li>
@@ -42,5 +44,9 @@ export default {
 <style scoped>
 ul {
   list-style:none;
+}
+.margin {
+  margin:auto;
+  margin-top: 10%;
 }
 </style>

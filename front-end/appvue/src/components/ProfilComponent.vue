@@ -1,19 +1,22 @@
 <template>
-    <form class="col-md-12" @submit.prevent="editProfil">
-        <div>
-            <label for="userName">Prenom</label><br>
-            <input type="text" id="userName" name="userName" v-model="userName" required>
+        <div class="margin col-md-12">
+            <h1 class="text-center">Profil</h1>
+            <form @submit.prevent="editProfil">
+                <div>
+                    <label for="userName" class="form-label">Prenom</label><br>
+                    <input type="text" class="form-control" id="userName" name="userName" v-model="userName" required>
+                </div>
+                <div>
+                    <label for="email" class="form-label">e-mail</label><br>
+                    <input type="email" class="form-control" id="email" v-model="email" name="email" required>
+                </div>
+                <br>
+                <input type="submit"  class="btn btn-secondary" value="Editer" />
+                <div v-if="this.edit" class="alert alert-success" role="alert">
+                    Le Profil a été edité !
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="email">e-mail</label><br>
-            <input type="email" id="email" v-model="email" name="email" required>
-        </div>
-        <br>
-        <input type="submit"  class="btn btn-secondary" value="Editer" />
-        <div v-if="this.edit" class="alert alert-success" role="alert">
-            Le Profil a été edité !
-        </div>
-    </form>
 </template>
 
 <script>
@@ -54,4 +57,8 @@ export default {
 </script>
 
 <style scoped>
+.margin {
+    margin:auto;
+    margin-top: 10%;
+}
 </style>

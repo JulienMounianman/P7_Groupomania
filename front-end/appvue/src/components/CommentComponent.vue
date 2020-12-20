@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="margin">
     <div v-if="this.edit === false">
+      <h1 class="text-center">{{ allPostInfo.title }}</h1>
       <div class="card">
         <div class="card-body">
           <h2 class="card-title" id="item.id">{{ allPostInfo.title }}</h2>
@@ -13,6 +14,7 @@
       </div>
     </div>
     <div v-if="this.edit === true">
+      <h1 class="text-center">{{ allPostInfo.title }}</h1>
       <form class="col-md-12" @submit.prevent="editPost">
         <div class="form-group">
           <label for="title">Title:</label>
@@ -191,7 +193,7 @@ export default {
         })
         .then(() => {
           if (this.$store.getters.statusCode == 201) {
-            console.log(true);
+            this.$router.go();
           }
         });
     },
@@ -224,6 +226,7 @@ ul {
   list-style: none;
 }
 .margin {
-  margin: auto;
+  margin:auto;
+  margin-top: 10%;
 }
 </style>

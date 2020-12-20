@@ -1,28 +1,31 @@
 <template>
-  <form class="col-md-12" @submit.prevent="createPost">
-    <div class="form-group">
-      <label for="title">Title:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="title"
-        name="title"
-        v-model="title"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="content">Contenu:</label>
-     <textarea v-model="content" class="form-control" id="content" name="content" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Categorie:</label>
-      <select class="form-control" id="exampleFormControlSelect1" @change="category($event)" >
-        <option v-for="item in this.Allcategory " :key="item.id" :id="item.id"  >{{ item.name }}</option>
-      </select>
-    </div>
-    <input type="submit" class="btn btn-secondary" value="Créer ce Post" />
-  </form>
+  <div class="margin">
+    <h1>Publication d'article</h1>
+    <form class="col-md-12" @submit.prevent="createPost">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          name="title"
+          v-model="title"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="content">Contenu:</label>
+      <textarea v-model="content" class="form-control" id="content" name="content" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Categorie:</label>
+        <select class="form-control" id="exampleFormControlSelect1" @change="category($event)" >
+          <option v-for="item in this.Allcategory " :key="item.id" :id="item.id"  >{{ item.name }}</option>
+        </select>
+      </div>
+      <input type="submit" class="btn btn-secondary" value="Créer ce Post" />
+    </form>
+  </div>
 </template>
 
 <script>
@@ -70,4 +73,9 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.margin {
+  margin:auto;
+  margin-top: 10%;
+}
+</style>

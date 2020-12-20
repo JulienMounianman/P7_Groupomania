@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<header class="navbar navbar-expand-sm navbar-dark bg-dark">
    <a class="navbar-brand" href="#">Groupomania</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
     </li>
   </ul>
   </div>
-</nav>
+</header>
 </template>
 
   
@@ -54,7 +54,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-nav {
-  margin-bottom: 2%; ;
+header {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 1;
 }
 </style>

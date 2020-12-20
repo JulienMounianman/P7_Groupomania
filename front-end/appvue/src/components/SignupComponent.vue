@@ -1,19 +1,22 @@
 <template>
-     <form class="col-md-12" @submit.prevent="signup">
-        <div class="form-group">
-            <label for="userName">Prénom</label>
-            <input class="form-control" type="text" id="userName" name="userName" v-model="userName" required>
+    <div class="margin">
+      <h1 class="text-center">Inscription</h1>
+      <form class="col-md-12" @submit.prevent="signup">
+          <div class="form-group">
+              <label for="userName">Prénom</label>
+              <input class="form-control" type="text" id="userName" name="userName" v-model="userName" required>
+          </div>
+          <div class="form-group">
+              <label for="email">Adresse Email</label>
+              <input class="form-control" type="email" id="email" v-model="email" name="email" required>
+          </div>
+          <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input class="form-control" type="text" id="password" v-model="password" name="password" required>
         </div>
-        <div class="form-group">
-            <label for="email">Adresse Email</label>
-            <input class="form-control" type="email" id="email" v-model="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input class="form-control" type="text" id="password" v-model="password" name="password" required>
-      </div>
-       <input type="submit" class="btn btn-secondary" value="s'inscrire" />
-    </form>
+        <input type="submit" class="btn btn-secondary" value="s'inscrire" />
+      </form>
+    </div>
 </template>
 
 <script>
@@ -59,4 +62,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.margin {
+  margin:auto;
+  margin-top:15%
+}
 </style>
