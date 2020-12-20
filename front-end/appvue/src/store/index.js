@@ -9,13 +9,14 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     token: localStorage.getItem('token'),
-    responseApi: "",
+    error: "",
     statusCodeResponse: 0,
     data: [],
     id: 0,
     url: "",
     postId: 0,
-    categoryId:0
+    categoryId:0,
+    isAdmin: false
   },
   getters: {
     statusCode: state => {
@@ -38,6 +39,12 @@ export default new Vuex.Store({
     },
     url: state => {
       return state.url;
+    },
+    isAdmin: state => {
+      return state.isAdmin;
+    },
+    error: state => {
+      return state.error;
     }
   },
   mutations: {
@@ -48,6 +55,9 @@ export default new Vuex.Store({
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'token', response.data.token)
       localStorage.setItem('token', response.data.token)
+      if(response.data.isAdmin) {
+        Vue.set(state, 'isAdmin', response.data.isAdmin)
+      }
     },
     setDataStatus (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)
@@ -56,6 +66,9 @@ export default new Vuex.Store({
     disconnect(state) {
       localStorage.clear();
       Vue.set(state, 'token', null);
+    },
+    setError(state,error) {
+      Vue.set(state, 'error', error);
     }
   },
   actions: {
@@ -83,7 +96,7 @@ export default new Vuex.Store({
           commit('setTokenStatus', response)
         })
         .catch(error => { 
-          console.log(error);
+          commit('setError', error)
         })
     },
     getById ({commit, state }) {
@@ -97,6 +110,7 @@ export default new Vuex.Store({
             commit('setDataStatus', response)
           })
           .catch(error => {
+
             console.log(error);
         })
     },
@@ -144,6 +158,21 @@ export default new Vuex.Store({
       .catch(error => {
         console.log(error);
     })
+    },
+    createPost ({commit, state }, {title, content, categoryId}) {
+      return axios
+      .post("http://localhost:3000/api/post/", {title: title, content: content, categoryId: categoryId },
+            {
+              headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('setStatus', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
     }
   },
   modules: {

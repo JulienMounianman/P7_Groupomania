@@ -20,9 +20,20 @@
     <li class="nav-item">
       <a class="nav-link" href="#"><router-link class="text-white" to="/profil">Profil</router-link></a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><router-link class="text-white" to="/createPost">Créer un article</router-link></a>
+    </li>
       <li class="nav-item">
       <a class="nav-link" v-on:click="disconnect()" href="#">Déconnexion</a>
      </li>
+  </ul>
+  <ul class="navbar-nav " v-if="this.$store.getters.isAdmin === true">
+    <li class="nav-item">
+      <a class="nav-link" href="#"><router-link class="text-white" to="/category">Ajouté une Catégorie</router-link></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><router-link class="text-white" to="/users">Liste des Utilisateurs</router-link></a>
+    </li>
   </ul>
   </div>
 </nav>

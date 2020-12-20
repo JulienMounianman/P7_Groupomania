@@ -25,6 +25,8 @@ export default {
     }
   },
   mounted () {
+    this.$store.state.error = "";
+    console.log(this.$store.state.error);
   },
   methods: {
     login () {
@@ -33,7 +35,12 @@ export default {
       password: this.password,
       email: this.email
       }).then(() => {
-        this.$router.push({ name:'Forum'});
+        if(this.$store.getters.error != "") {
+          console.log(this.$store.getters.error);
+        } else {
+          this.$store.state.error = "";
+          this.$router.push({ name:'Forum'});
+        }
       }).catch(() => {}); 
     }
   }

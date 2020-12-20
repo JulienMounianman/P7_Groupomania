@@ -6,19 +6,17 @@ exports.CreatePost = (req, res) => {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
 
-    db.Category.findOne({ where: { name: req.body.name } })
-        .then(category => {
-            const newPost = new db.Post({
-                title: req.body.title,
-                content: req.body.content,
-                userId: userId,
-                categoryId: category.id
-            })
-            newPost.save()
-                .then(newPost => res.status(201).json(newPost))
-                .catch(error => res.status(500).json(error));
-        })
-        .catch(error => res.status(404).json(error));
+    console.log("test:" + req.body.categoryId);
+    const newPost = new db.Post({
+        title: req.body.title,
+        content: req.body.content,
+        userId: userId,
+        categoryId: parseInt(req.body.categoryId)
+    })
+    newPost.save()
+        .then(newPost => res.status(201).json(newPost))
+        .catch(error => res.status(500).json(error));
+
 }
 
 exports.getAllPost = (req, res) => {

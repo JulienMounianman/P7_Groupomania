@@ -21,7 +21,7 @@ export default {
     }
   }, 
   mounted() {
-      if(this.$store.getters.token == "") {
+      if(localStorage.getItem('token') == "") {
         this.$router.push({ name:'Login'});
       } else {
         this.$store.state.url  = "http://localhost:3000/api/category/"

@@ -66,9 +66,7 @@ export default {
     },
     methods: {
       Postcomment () {
-        this.$store.state.id = this.postId
-        console.log(this.postId)
-        console.log(this.content)
+        this.$store.state.id = this.$store.getters.postId
         this.$store.dispatch({
           type: "Postcomment", 
           content: this.content,

@@ -6,6 +6,7 @@ import Login from '../views/login.vue'
 import Post from '../views/post.vue'
 import Comment from '../views/comment.vue'
 import Profil from '../views/profil.vue'
+import CreatePost from '../views/createPost.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/profil',
     name: 'Profil',
     component: Profil
+  },
+  {
+    path: '/createPost',
+    name: 'CreatePost',
+    component: CreatePost
   }
 ]
 

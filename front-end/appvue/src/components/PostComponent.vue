@@ -6,6 +6,7 @@
       <div class="card-body">
         <h2 class="card-title">{{item.title}}</h2>
         <p class="card-text">{{item.content}}</p>
+        <span>{{item.createdAt}}</span>
       </div>
       </div>
       </li>
