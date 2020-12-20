@@ -1,90 +1,227 @@
 <template>
-     <div>
-       <div>
-        <form class="text-center" @submit.prevent="Postcomment">
-          <div>
-          <label for="comment">Ecrire un commentaire:</label><br>
-          <textarea class="margin" name="comment" cols="50" rows="5" v-model="content"></textarea>
+  <div>
+    <div v-if="this.edit === false">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title" id="item.id">{{ allPostInfo.title }}</h2>
+          <p class="card-text">{{ allPostInfo.content }}</p>
+          <span
+            >Crée par : {{ allPostInfo.userName }}, le
+            {{ allPostInfo.createdAt }} modifié le : {{ allPostInfo.updatedAt }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div v-if="this.edit === true">
+      <form class="col-md-12" @submit.prevent="editPost">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="title"
+            name="title"
+            v-model="allPostInfo.title"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="content">Contenu:</label>
+          <textarea
+            v-model="allPostInfo.content"
+            class="form-control"
+            id="content"
+            name="content"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Categorie:</label>
+          <select
+            class="form-control"
+            id="exampleFormControlSelect1"
+            @change="category($event)"
+          >
+            <option
+              v-for="item in this.Allcategory"
+              :key="item.id"
+              :id="item.id" 
+              >{{ item.name }}</option
+            >
+          </select>
+        </div>
+        <input type="submit" class="btn btn-secondary" value="Editer ce Post" />
+      </form>
+    </div>
+    <br>
+    <div>
+      <form class="text-center" @submit.prevent="Postcomment">
+        <div>
+          <label for="comment">Ecrire un commentaire:</label><br />
+          <textarea
+            class="margin"
+            name="comment"
+            cols="50"
+            rows="5"
+            v-model="content"
+          ></textarea>
+        </div>
+        <input type="submit" class="btn btn-secondary" value="Envoyer" />
+      </form>
+    </div>
+    <div>
+      <ul>
+        <li
+          class=" margin col-md-12"
+          v-for="item in this.allCommentInfo"
+          :key="item.id"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title" id="item.id">{{ item.userName }}</h2>
+              <p class="card-text">{{ item.content }}</p>
+            </div>
           </div>
-          <input type="submit" class="btn btn-secondary" value="Envoyer" />
-        </form>
-      </div>
-      <div>
-        <ul>
-          <li class=" margin col-md-12" v-for="item in this.datatest" :key="item.id">
-              <div class="card">     
-                  <div class="card-body">
-                    <h2 class="card-title"  id="item.id"> {{ item.userName }}</h2>
-                    <p class="card-text">{{item.content}}</p>
-                  </div>
-              </div>
-          </li>
-        </ul>
-      </div>
-     </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'CommentComponent',
+  name: "CommentComponent",
   data() {
     return {
       content: "",
-      dataPost: [],
+      dataComment: [],
       dataUser: [],
-      datatest: [],
-      saveId:0
-    }
-  }, 
+      dataPost: {},
+      allCommentInfo: [],
+      allPostInfo: {},
+      saveId: 0,
+      edit: false,
+      editTitle: "",
+      editContent: "",
+      Allcategory: [],
+      selected: false,
+      categoryId: 0
+    };
+  },
   mounted() {
-    console.log(this.$store.getters.postId);
-    if(this.$store.getters.token == null) {
-      this.$router.push({ name:'Login'});
-    } 
-    else {
-        this.$store.state.id = this.$store.getters.postId
-        this.$store.state.url  = "http://localhost:3000/api/comment/post/"
-        this.$store.dispatch({type: "getById"}).then(() => {
-          this.$store.getters.data.forEach(element => {
-            this.dataPost.push(element)
+    if (this.$store.getters.token == null) {
+      this.$router.push({ name: "Login" });
+    } else {
+      this.$store.state.id = this.$store.getters.postId;
+      this.$store.state.url = "http://localhost:3000/api/post/";
+      this.$store.dispatch({ type: "getById" }).then(() => {
+        this.dataPost = this.$store.getters.data;
+        this.$store.state.id = this.dataPost.userId;
+        this.$store.state.url = "http://localhost:3000/api/auth/profil/";
+        this.$store.dispatch({ type: "getById" }).then(() => {
+          this.allPostInfo = {
+            title: this.dataPost.title,
+            content: this.dataPost.content,
+            userName: this.$store.getters.data.userName,
+            updatedAt: this.dataPost.updatedAt,
+            createdAt: this.dataPost.createdAt,
+            categoryId: this.dataPost.categoryId,
+            userId: this.$store.getters.data.userId,
+          };
+        });
+      });
+
+      this.$store.state.url = "http://localhost:3000/api/auth/profil/";
+      this.$store
+        .dispatch({ type: "getAll" })
+        .then(() => {
+          if (this.dataPost.userId == this.$store.getters.data.id) {
+            this.edit = true;
+          }
+        })
+        .then(() => {
+          if (this.edit === true) {
+            this.$store.state.url = "http://localhost:3000/api/category/";
+            this.$store.dispatch({ type: "getAll" })
+              .then(() => {
+                this.Allcategory = this.$store.getters.data;
+              })
+              .then(() => {
+                this.Allcategory.forEach((e) => {
+                  if (e.id == this.dataPost.categoryId) {
+                    const attr = document.getElementById(this.dataPost.categoryId);
+                    attr.setAttribute('selected', 'selected')
+                    this.categoryId = this.dataPost.categoryId;
+                  }
+                })
+              });
+          }
+        });
+
+      this.$store.state.url = "http://localhost:3000/api/comment/post/";
+      this.$store
+        .dispatch({ type: "getById" })
+        .then(() => {
+          this.$store.getters.data.forEach((element) => {
+            this.dataComment.push(element);
           });
-          this.dataPost.forEach(e => {
-            this.$store.state.id = e.userId
-            this.$store.state.url  = "http://localhost:3000/api/auth/profil/"
-            this.$store.dispatch({type: "getById"}).then(() => {
+          this.dataComment.forEach((e) => {
+            this.$store.state.id = e.userId;
+            this.$store.state.url = "http://localhost:3000/api/auth/profil/";
+            this.$store.dispatch({ type: "getById" }).then(() => {
               const PostUser = new Object({
                 content: e.content,
-                userName: this.$store.getters.data.userName
-              })
-              this.datatest.push(PostUser)
-              this.dataUser.push(this.$store.getters.data.userName)
-            })
-          })
-        }).catch(() => {
-        }); 
-      }    
-    },
-    methods: {
-      Postcomment () {
-        this.$store.state.id = this.$store.getters.postId
-        this.$store.dispatch({
-          type: "Postcomment", 
-          content: this.content,
-          }).then(() => {
-            if(this.$store.getters.statusCode == 201) {
-              console.log(true)
-            }
-          })
-          
-      } 
+                userName: this.$store.getters.data.userName,
+              });
+              this.allCommentInfo.push(PostUser);
+              this.dataUser.push(this.$store.getters.data.userName);
+            });
+          });
+        })
+        .catch(() => {});
     }
-  }
+  },
+  methods: {
+    Postcomment() {
+      this.$store.state.id = this.$store.getters.postId;
+      this.$store
+        .dispatch({
+          type: "Postcomment",
+          content: this.content,
+        })
+        .then(() => {
+          if (this.$store.getters.statusCode == 201) {
+            console.log(true);
+          }
+        });
+    },
+    category: function(event) {
+        console.log(event.target.value)
+        this.Allcategory.forEach(element => {
+          if(element.name == event.target.value) {
+            this.categoryId = element.id          
+          }
+        });
+      },
+      editPost () {
+        this.$store.dispatch({
+        type: "editPost", 
+        title: this.allPostInfo.title,
+        content: this.allPostInfo.content,
+        categoryId: this.categoryId
+        }).then(() => {
+              this.$store.state.categoryId = this.categoryId;
+              this.$router.push({ name:'Post'})
+        })
+      }
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 ul {
-  list-style:none;
+  list-style: none;
 }
 .margin {
   margin: auto;

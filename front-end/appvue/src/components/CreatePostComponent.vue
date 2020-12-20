@@ -53,7 +53,6 @@ export default {
             this.categoryId = element.id          
           }
         });
-        console.log(this.categoryId)
       },
       createPost () {
         this.$store.dispatch({

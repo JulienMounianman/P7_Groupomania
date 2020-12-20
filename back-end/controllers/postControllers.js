@@ -5,8 +5,6 @@ exports.CreatePost = (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
-
-    console.log("test:" + req.body.categoryId);
     const newPost = new db.Post({
         title: req.body.title,
         content: req.body.content,
@@ -16,7 +14,6 @@ exports.CreatePost = (req, res) => {
     newPost.save()
         .then(newPost => res.status(201).json(newPost))
         .catch(error => res.status(500).json(error));
-
 }
 
 exports.getAllPost = (req, res) => {
@@ -32,12 +29,15 @@ exports.getOnePost = (req, res) => {
 }
 
 exports.udaptePost = (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
     db.Post.findOne({ where: { id: req.params.id } })
         .then(post => {
             post.update({
                 title: req.body.title,
                 content: req.body.content,
-                userId: post.id,
+                userId: userId,
                 categoryId: post.id
             })
                 .then(() => res.status(200).json({ message: 'post modifié !' }))

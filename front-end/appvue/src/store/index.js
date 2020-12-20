@@ -173,6 +173,21 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error);
         })
+    },
+    editPost ({commit, state }, {title, content, categoryId}) {
+      return axios
+      .put("http://localhost:3000/api/post/" + categoryId ,{title: title, content: content, categoryId: categoryId },
+            {
+              headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('setStatus', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
     }
   },
   modules: {
