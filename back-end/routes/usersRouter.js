@@ -9,5 +9,5 @@ router.get('/profil', ctrl.getProfil);
 router.get('/profil/:id', ctrl.getUserById);
 router.get('/users', ctrl.getAllUser);
 router.put('/profil', ctrl.UpdateProfil);
-router.put('/:id', ctrl.deleteUser);
+router.delete('/user/:id', ctrl.deleteUser);
 module.exports = router;

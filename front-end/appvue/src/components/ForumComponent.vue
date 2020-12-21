@@ -30,6 +30,7 @@ export default {
         this.$store.dispatch({type: "getAll"}).then(() => {
           this.$store.getters.data.forEach(category => {
               const categoryisAdminObject = {
+                id:  category.id,
                 name: category.name,
                 description: category.description,
                 isAdmin: this.$store.getters.isAdmin

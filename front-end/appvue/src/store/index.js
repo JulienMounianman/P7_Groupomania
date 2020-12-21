@@ -217,6 +217,21 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error);
         })
+    },
+    delete ({commit,state}, { id } ) {
+      return axios
+      .delete( state.url + id ,
+            {
+              headers: {
+              'Authorization': 'Bearer ' + state.token
+            }
+          })
+          .then(response => {
+            commit('setStatus', response)
+          })
+          .catch(error => {
+            console.log(error);
+        })
     }
   },
   

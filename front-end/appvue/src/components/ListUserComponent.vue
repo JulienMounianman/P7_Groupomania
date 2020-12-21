@@ -34,8 +34,13 @@ export default {
     },
     methods: {
       deleteUser: function(event) {
-        this.$store.state.categoryId = event.currentTarget.id;
-        this.$router.push({ name:'Post'});
+        this.$store.state.url = "http://localhost:3000/api/auth/user/"
+        this.$store.dispatch({
+          type: "delete",
+          id: event.currentTarget.id
+          }).then(() => {
+            this.$router.go()
+        })
       },
     },
   }

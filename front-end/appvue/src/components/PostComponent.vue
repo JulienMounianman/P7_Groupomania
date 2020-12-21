@@ -37,7 +37,6 @@ export default {
           this.$store.state.url  = "http://localhost:3000/api/category/"
            this.$store.dispatch({type: "getById"}).then(() => {
              this.categoryName = this.$store.getters.data.name;
-             console.log(this.categoryName)
            })
         }).catch(() => {
         }); 
