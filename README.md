@@ -14,15 +14,16 @@ OpenClassrooms - Projet 7 - Développeur Web
 ## Setup
 
 
-USERNAME root
-PASSWORD password
-DATABASE groupomania;
-DIALECT mysql
+- USERNAME root
+- PASSWORD password
+- DATABASE groupomania
+- DIALECT mysql
 
 - Lancer l'Api.
 
 ```
 $ cd /back-end
+$ npm install
 $ node server
 ```
 
@@ -30,6 +31,7 @@ $ node server
 
 ```
 $ cd /front-end/appvue
+$ npm install
 $ npm run serve
 
 ```
