@@ -7,6 +7,7 @@ router.post('/signup', password_middleware, ctrl.signup);
 router.post('/login', ctrl.login);
 router.get('/profil', ctrl.getProfil);
 router.get('/profil/:id', ctrl.getUserById);
+router.get('/users', ctrl.getAllUser);
 router.put('/profil', ctrl.UpdateProfil);
 router.put('/:id', ctrl.deleteUser);
 module.exports = router;

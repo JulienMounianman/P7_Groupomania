@@ -26,14 +26,13 @@
       <li class="nav-item">
       <a class="nav-link" v-on:click="disconnect()" href="#">Déconnexion</a>
      </li>
-  <li class="nav-item dropdown">
+  <li class="nav-item dropdown" v-if="this.$store.getters.isAdmin === true">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Administration
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
       <a class="dropdown-item" href="#"><router-link  to="/createCategory">Ajouter une Catégorie</router-link></a>
-      <a class="dropdown-item" href="#"><router-link  to="/editCategory">Editer une Catégorie</router-link></a>
-      <a class="dropdown-item" href="#"><router-link  to="/users">Liste des Utilisateurs</router-link></a>
+      <a class="dropdown-item" href="#"><router-link  to="/listUser">Liste des Utilisateurs</router-link></a>
     </div>
    </li>
   </ul>

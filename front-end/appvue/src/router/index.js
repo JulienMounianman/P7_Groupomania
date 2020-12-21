@@ -9,6 +9,8 @@ import Profil from '../views/profil.vue'
 import CreatePost from '../views/createPost.vue'
 import CreateCategory from '../views/createCategory.vue'
 import EditCategory from '../views/editCategory.vue'
+import listUser from '../views/listUser.vue'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -86,6 +88,9 @@ const routes = [
       if(localStorage.getItem('token') === null){
         router.push({ name:'Login'})
       }
+      if(store.state.isAdmin === false){
+        router.push({ name:'Login'})
+      }
       next()
     },
     
@@ -98,9 +103,25 @@ const routes = [
       if(localStorage.getItem('token') === null){
         router.push({ name:'Login'})
       }
+      if(store.state.isAdmin === false){
+        router.push({ name:'Login'})
+      }
       next()
-    },
-    
+    }
+  },
+  {
+    path: '/listUser',
+    name: 'listUser',
+    component: listUser,
+    beforeEnter: (to, from, next) => {
+      if(localStorage.getItem('token') === null){
+        router.push({ name:'Login'})
+      }
+      if(store.state.isAdmin === false){
+        router.push({ name:'Login'})
+      }
+      next()
+    }
   }
 ]
 

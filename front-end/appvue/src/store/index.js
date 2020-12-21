@@ -55,9 +55,7 @@ export default new Vuex.Store({
       Vue.set(state, 'statusCodeResponse', response.status)
       Vue.set(state, 'token', response.data.token)
       localStorage.setItem('token', response.data.token)
-      if(response.data.isAdmin) {
-        Vue.set(state, 'isAdmin', response.data.isAdmin)
-      }
+      Vue.set(state, 'isAdmin', response.data.isAdmin)
     },
     setDataStatus (state,response) {
       Vue.set(state, 'statusCodeResponse', response.status)

@@ -35,7 +35,8 @@ exports.login = (req, res) => {
         if (result) {
             res.status(200).json({
               userId: user.id,
-              token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' })
+              token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
+              isAdmin: false
             })
         } else {
           res.status(401).json(err);
@@ -82,4 +83,10 @@ exports.getUserById = (req, res) => {
   db.User.findOne({ where: { id: req.params.id } })
     .then(user => res.status(200).json(user))
     .catch(error => res.status(404).json(error));
+}
+
+exports.getAllUser = (req, res) => {
+  db.User.findAll({ order: [['userName', 'ASC']] })
+      .then(Category => res.status(200).json(Category))
+      .catch(error => res.status(404).json(error));
 }
