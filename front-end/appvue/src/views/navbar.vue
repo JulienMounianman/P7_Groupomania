@@ -7,10 +7,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav mr-auto" >
     <li class="nav-item" v-if="this.$store.getters.token == null">
-      <a class="nav-link" href="#"><router-link class="navbar-brand" to="/login">Login</router-link></a>
+      <a class="nav-link" href="#"><router-link class="navbar-brand" to="/login">Connexion</router-link></a>
     </li>
     <li class="nav-item" v-if="this.$store.getters.token == null">
-      <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/signup">Signup</router-link></a>
+      <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/signup">Inscription</router-link></a>
     </li>
     <span v-if="this.$store.getters.token !== null">
       <li class="nav-item dropdown">
@@ -21,7 +21,7 @@
         <a class="nav-link"  href="#"><router-link  to="/forum">Forum</router-link></a>
         <a class="nav-link" href="#"><router-link  to="/profil">Profil</router-link></a>
         <a class="nav-link" href="#"><router-link  to="/createPost">Créer un article</router-link></a>
-        <a class="nav-link text-dark" v-on:click="disconnect()" href="#">Déconnexion</a>
+        <a class="nav-link text-dark" v-on:click="disconnect()" href="#">Déconnection</a>
       </div>
     </li>
     </span>
