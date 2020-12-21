@@ -50,5 +50,4 @@ exports.deleteCategory = (req, res) => {
                     });
             })
         })
-   
 }

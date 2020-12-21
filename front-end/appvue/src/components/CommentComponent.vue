@@ -92,6 +92,7 @@
 </template>
 
 <script>
+const dateFormat = require("dateformat");
 export default {
   name: "CommentComponent",
   data() {
@@ -129,8 +130,8 @@ export default {
             title: this.dataPost.title,
             content: this.dataPost.content,
             userName: this.$store.getters.data.userName,
-            updatedAt: this.dataPost.updatedAt,
-            createdAt: this.dataPost.createdAt,
+            updatedAt: dateFormat(this.dataPost.updatedAt),
+            createdAt: dateFormat(this.dataPost.createdAt),
             categoryId: this.dataPost.categoryId,
             userId: this.$store.getters.data.userId,
             isAdmin: this.$store.getters.isAdmin

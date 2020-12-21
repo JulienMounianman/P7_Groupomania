@@ -1,40 +1,39 @@
 <template>
 <header class="navbar navbar-expand-sm navbar-dark bg-dark">
    <a class="navbar-brand" href="#">Groupomania</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav" v-if="this.$store.getters.token == null">
-    <li class="nav-item">
+  <ul class="navbar-nav mr-auto" >
+    <li class="nav-item" v-if="this.$store.getters.token == null">
       <a class="nav-link" href="#"><router-link class="navbar-brand" to="/login">Login</router-link></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="this.$store.getters.token == null">
       <a class="nav-link" href="#"><router-link  class="navbar-brand" to="/signup">Signup</router-link></a>
     </li>
-  </ul>
-  <ul class="navbar-nav mr-auto" v-if="this.$store.getters.token !== null">
-    <li class="nav-item">
-      <a class="nav-link"  href="#"><router-link class="text-white" to="/forum">Forum</router-link></a>
+    <span v-if="this.$store.getters.token !== null">
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Menu
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="nav-link"  href="#"><router-link  to="/forum">Forum</router-link></a>
+        <a class="nav-link" href="#"><router-link  to="/profil">Profil</router-link></a>
+        <a class="nav-link" href="#"><router-link  to="/createPost">Créer un article</router-link></a>
+        <a class="nav-link text-dark" v-on:click="disconnect()" href="#">Déconnexion</a>
+      </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><router-link class="text-white" to="/profil">Profil</router-link></a>
+    </span>
+    <li class="nav-item dropdown" v-if="this.$store.getters.isAdmin === true">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Administration
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#"><router-link  to="/createCategory">Ajouter une Catégorie</router-link></a>
+        <a class="dropdown-item" href="#"><router-link  to="/listUser">Liste des Utilisateurs</router-link></a>
+      </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><router-link class="text-white" to="/createPost">Créer un article</router-link></a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" v-on:click="disconnect()" href="#">Déconnexion</a>
-     </li>
-  <li class="nav-item dropdown" v-if="this.$store.getters.isAdmin === true">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Administration
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="#"><router-link  to="/createCategory">Ajouter une Catégorie</router-link></a>
-      <a class="dropdown-item" href="#"><router-link  to="/listUser">Liste des Utilisateurs</router-link></a>
-    </div>
-   </li>
   </ul>
   </div>
 </header>

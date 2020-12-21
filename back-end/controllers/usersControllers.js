@@ -24,7 +24,7 @@ exports.login = (req, res) => {
     where: { email: req.body.email }
   })
     .then(user => {
-      if(user.isAdmin === true) {
+      if (user.isAdmin === true) {
         res.status(200).json({
           userId: user.id,
           token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
@@ -33,11 +33,11 @@ exports.login = (req, res) => {
       }
       bcrypt.compare(req.body.password, user.password, function (err, result) {
         if (result) {
-            res.status(200).json({
-              userId: user.id,
-              token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
-              isAdmin: false
-            })
+          res.status(200).json({
+            userId: user.id,
+            token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
+            isAdmin: false
+          })
         } else {
           res.status(401).json(err);
         }
@@ -74,9 +74,56 @@ exports.UpdateProfil = (req, res) => {
 }
 
 exports.deleteUser = (req, res) => {
-  db.User.destroy({ where: {id: req.params.id }})
-  .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
-  .catch(error => res.status(400).json({ error }));
+  db.Post.findAll({ where: { userId: req.params.id } })
+    .then((posts) => {
+        posts.forEach(post => {
+          db.Comments.findAll({ where: { postId: post.id } })
+              .then((comments) => {
+                comments.forEach(comment => {
+                  db.Comments.destroy({ where: { id: comment.id } })                
+                })
+                .then(() => {
+                  db.User.destroy({ where: { id: req.params.id } })
+                    .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+                    .catch(error => res.status(400).json({ error }));
+                })
+              })
+              .catch(() => {
+                db.Post.destroy({ where: { id: post.id } })
+              })
+        })
+        .then(() => {
+          db.Comments.findAll({ where: { userId: req.params.id } })
+          .then((comments) => {
+            comments.forEach(comment => {
+              db.Comments.destroy({ where: { id: comment.id } })             
+            })
+            .then(() => {
+              db.User.destroy({ where: { id: req.params.id } })
+              .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+              .catch(error => res.status(400).json({ error }));
+            })
+          })
+        });
+    })
+    .catch(() => {
+      db.Comments.findAll({ where: { userId: req.params.id } })
+          .then((comments) => {
+            comments.forEach(comment => {
+              db.Comments.destroy({ where: { id: comment.id } })
+            })
+            .then(() => {
+              db.User.destroy({ where: { id: req.params.id } })
+              .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+              .catch(error => res.status(400).json({ error }));
+            })
+          })
+          .catch(() => {
+            db.User.destroy({ where: { id: req.params.id } })
+              .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+              .catch(error => res.status(400).json({ error }));
+          })
+    })
 }
 
 exports.getUserById = (req, res) => {
@@ -87,6 +134,6 @@ exports.getUserById = (req, res) => {
 
 exports.getAllUser = (req, res) => {
   db.User.findAll({ order: [['userName', 'ASC']] })
-      .then(Category => res.status(200).json(Category))
-      .catch(error => res.status(404).json(error));
+    .then(Category => res.status(200).json(Category))
+    .catch(error => res.status(404).json(error));
 }

@@ -18,6 +18,7 @@
 </template>
 
 <script>
+const dateFormat = require("dateformat");
 export default {
   name: 'PostComponent',
   data() {
@@ -48,8 +49,8 @@ export default {
               id: postInfo.id,
               title: postInfo.title,
               content: postInfo.content,
-              createdAt: postInfo.createdAt,
-              updatedAt: postInfo.updatedAt,
+              createdAt: dateFormat(postInfo.createdAt),
+              updatedAt: dateFormat(postInfo.updatedAt),
               userId: postInfo.userId,
               currentUserId: this.$store.getters.data.id,
               userName: this.$store.getters.data.id === postInfo.userId ? this.$store.getters.data.userName : "test",

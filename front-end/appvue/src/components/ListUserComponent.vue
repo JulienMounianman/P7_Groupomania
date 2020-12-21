@@ -2,7 +2,7 @@
    <div class="margin">
      <h1 class="text-center">Liste des Utilisateurs</h1>
       <ul>
-      <li class="col-md-12" v-for="item in this.$store.getters.data" :key="item.id">
+      <li class="col-md-12" v-for="item in dataUsers" :key="item.id">
       <div class="card"  >     
       <div class="card-body">
         <h2 class="card-title">{{item.userName}}</h2>
@@ -17,20 +17,28 @@
 </template>
 
 <script>
+const dateFormat = require("dateformat");
 export default {
   name: 'ListUserComponent',
   data() {
     return {
+      dataUsers: []
     }
   }, 
   mounted() {
-      if(localStorage.getItem('token') == "") {
-        this.$router.push({ name:'Login'});
-      } else {
-        this.$store.state.url  = "http://localhost:3000/api/auth/users"
-        this.$store.dispatch({type: "getAll"}).then(() => {
-        })
-      }
+      this.$store.state.url  = "http://localhost:3000/api/auth/users"
+      this.$store.dispatch({type: "getAll"}).then(() => {
+        this.$store.getters.data.forEach(user => {
+          const usersObject = {
+            id: user.id,
+            userName: user.userName,
+            email: user.email,
+            createdAt: dateFormat(user.createdAt),
+            updatedAt: dateFormat(user.updatedAt)
+          }
+          this.dataUsers.push(usersObject)
+        }); 
+      })
     },
     methods: {
       deleteUser: function(event) {

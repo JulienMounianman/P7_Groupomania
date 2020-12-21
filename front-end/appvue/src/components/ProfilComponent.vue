@@ -16,6 +16,7 @@
                     Le Profil a été edité !
                 </div>
             </form>
+            <button v-on:click="deleteAccount($event)" :id="id" class="btn btn-danger">Supprimer le compte</button>
         </div>
 </template>
 
@@ -27,6 +28,7 @@ export default {
       userName: '',
       email:'',
       password: '',     
+      id:0,
       edit: false
     }
   }, 
@@ -35,6 +37,7 @@ export default {
     this.$store.dispatch({type: "getAll"}).then(() => {
         this.userName = this.$store.getters.data.userName;
         this.email = this.$store.getters.data.email;
+        this.id = this.$store.getters.data.id
     })
     },
     methods: {
@@ -50,7 +53,17 @@ export default {
                     this.edit = true;
                 }
             })
-        }
+        },
+        deleteAccount: function(event) {
+        this.$store.state.url = "http://localhost:3000/api/auth/user/"
+        this.$store.dispatch({
+          type: "delete",
+          id: event.currentTarget.id
+          }).then(() => {
+            this.$store.commit('disconnect');
+            this.$router.push({ name:'Login'});
+        })
+      }
     },
   }
 </script>
