@@ -14,10 +14,10 @@ OpenClassrooms - Projet 7 - Développeur Web
 ## Setup
 
 
-USERNAME root 
-PASSWORD password 
-DATABASE groupomania 
-DIALECT mysql 
+USERNAME root  
+PASSWORD password  
+DATABASE groupomania  
+DIALECT mysql  
 
 - Lancer l'Api.
 
@@ -37,6 +37,6 @@ $ npm run serve
 ```
 
 
-- Utilisateur ADMIN : 
-    email : admin@admin.com 
-    password: RootAzerty1234A 
+- Utilisateur ADMIN :  
+    email : admin@admin.com  
+    password: RootAzerty1234A  
