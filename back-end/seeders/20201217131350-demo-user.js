@@ -11,7 +11,7 @@
       {
         userName: 'admin',
         email: 'admin@admin.com',
-        password: "admin",
+        password: "RootAzerty1234A!",
         isAdmin: true,
         createdAt: new Date(),
         updatedAt: new Date()

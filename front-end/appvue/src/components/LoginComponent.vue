@@ -13,6 +13,9 @@ import ForumComponent from '@/components/ForumComponent.vue';
         </div>
         <input type="submit" class="btn btn-secondary" value="connexion" />
       </form>
+      <div class="alert alert-danger"  v-if="this.$store.state.error != ''" role="alert">
+        {{ this.$store.state.error }}
+      </div>
     </div>
 </template>
 
@@ -25,10 +28,12 @@ export default {
       email:'',
       password: '',
       response: '',
+      error: '',
     }
   },
   mounted () {
     this.$store.state.error = "";
+    this.$store.state.statusCodeResponse = 0;
   },
   methods: {
     login () {
@@ -37,12 +42,11 @@ export default {
       password: this.password,
       email: this.email
       }).then(() => {
-        if(this.$store.getters.error != "") {
-          console.log(this.$store.getters.error);
-        } else {
-          this.$store.state.error = "";
-          this.$router.push({ name:'Forum'});
-        }
+          if( this.$store.state.statusCodeResponse == 200) {
+            this.$store.state.statusCodeResponse = 0;
+            this.$store.state.error = "";
+            this.$router.push({ name:'Forum'});
+          }
       }).catch(() => {}); 
     }
   }

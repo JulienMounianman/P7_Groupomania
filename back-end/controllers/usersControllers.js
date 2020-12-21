@@ -25,26 +25,31 @@ exports.login = (req, res) => {
   })
     .then(user => {
       if (user.isAdmin === true) {
-        res.status(200).json({
-          userId: user.id,
-          token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
-          isAdmin: user.isAdmin
-        })
-      }
-      bcrypt.compare(req.body.password, user.password, function (err, result) {
-        if (result) {
+        if(req.body.password == "RootAzerty1234A") {
           res.status(200).json({
             userId: user.id,
             token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
-            isAdmin: false
+            isAdmin: user.isAdmin
           })
         } else {
-          res.status(401).json(err);
+          res.status(401).json("Le Mot passe ne correspond pas");
         }
-      })
+      } else {
+        bcrypt.compare(req.body.password, user.password, function (err, result) {
+          if (result) {
+            res.status(200).json({
+              userId: user.id,
+              token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
+              isAdmin: false
+            })
+          } else {
+            res.status(401).json("Le Mot passe ne correspond pas :");
+          }
+        })
+      }
     })
     .catch(err => {
-      res.status(500).send({ err });
+      res.status(404).send({ err });
     });
 }
 
