@@ -24,6 +24,8 @@ DIALECT mysql
 ```
 $ cd /back-end
 $ npm install
+$ npx sequelize-cli db:migrate
+$ npx sequelize-cli db:seed:all
 $ node server
 ```
 
