@@ -1,5 +1,5 @@
 <template>
-  <div class="margin">
+  <div class="margin card">
     <h1>Création d'une catégorie</h1>
     <form class="col-md-12" @submit.prevent="createCategory">
       <div class="form-group">
@@ -47,5 +47,11 @@ export default {
 .margin {
   margin:auto;
   margin-top: 10%;
+}
+.card {
+  width: 100%;
+  padding: 2%;
+  background-color: #d7d7d7;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
 }
 </style>

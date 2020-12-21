@@ -1,8 +1,7 @@
 <template>
-   <div class="margin">
+   <div class="margin cardtest">
      <h1 class="text-center">Liste des Utilisateurs</h1>
-      <ul>
-      <li class="col-md-12" v-for="item in dataUsers" :key="item.id">
+      <div class="col-md-12" v-for="item in dataUsers" :key="item.id">
       <div class="card"  >     
       <div class="card-body">
         <h2 class="card-title">{{item.userName}}</h2>
@@ -11,8 +10,7 @@
         <button class="btn btn-primary" :id="item.id" v-on:click="deleteUser($event)" >Supprimer</button>
       </div>
       </div>
-      </li>
-      </ul>
+      </div>
     </div>
 </template>
 
@@ -65,5 +63,15 @@ ul {
 }
 button {
   margin: 1% 1% 1% 1%;
+}
+.cardtest {
+  width: 100%;
+  padding: 2%;
+  background-color: #d7d7d7;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+}
+.card {
+   background-color: #d3d3d3;
+   margin-top: 1%;;
 }
 </style>

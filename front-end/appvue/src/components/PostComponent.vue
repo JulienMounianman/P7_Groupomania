@@ -1,19 +1,20 @@
 <template>
-     <div class="margin">
+     <div class="margin cardtest">
        <h1 class="text-center">{{ this.categoryName }}</h1>
-      <ul>
-      <li clas="col-md-12" v-for="item in allPostInfo" :key="item.id">
+      <div clas="col-md-12" v-for="item in allPostInfo" :key="item.id">
       <div class="card">     
       <div class="card-body">
         <h2 class="card-title">{{item.title}}</h2>
         <p class="card-text">{{item.content}}</p>
         <p>{{item.createdAt}} By {{ item.userName}}</p>
         <button class="btn btn-info" v-on:click="redirect($event)" :id="item.id">Plus d'info</button>
-        <button v-if="item.userId == item.currentUserId || item.isAdmin == true" class="btn btn-info" v-on:click="deletePost($event)" :id="item.id">Supprimer</button>
+        <button v-if="item.userId == item.currentUserId || item.isAdmin == true" class="btn btn-danger" v-on:click="deletePost($event)" :id="item.id">Supprimer</button>
       </div>
       </div>
-      </li>
-      </ul>
+      </div>
+      <div v-if="this.listPost.length === 0" class="alert alert-info" role="alert">
+          Il n'y a aucun article dans cette catégorie
+      </div>
     </div>
 </template>
 
@@ -87,5 +88,18 @@ ul {
 .margin {
   margin:auto;
   margin-top: 10%;
+}
+.cardtest {
+  width: 100%;
+  padding: 2%;
+  background-color: #d7d7d7;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+}
+.card {
+   background-color: #d3d3d3;
+   margin-top: 1%;;
+}
+button {
+  margin-right: 1%;
 }
 </style>

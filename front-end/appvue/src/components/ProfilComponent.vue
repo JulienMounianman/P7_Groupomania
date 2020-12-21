@@ -1,5 +1,5 @@
 <template>
-        <div class="margin col-md-12">
+        <div class="margin col-md-12 card">
             <h1 class="text-center">Profil</h1>
             <form @submit.prevent="editProfil">
                 <div>
@@ -16,6 +16,7 @@
                     Le Profil a été edité !
                 </div>
             </form>
+            <br>
             <button v-on:click="deleteAccount($event)" :id="id" class="btn btn-danger">Supprimer le compte</button>
         </div>
 </template>
@@ -72,5 +73,11 @@ export default {
 .margin {
     margin:auto;
     margin-top: 10%;
+}
+.card {
+  width: 100%;
+  padding: 2%;
+  background-color: #d7d7d7;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
 }
 </style>

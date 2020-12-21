@@ -1,5 +1,5 @@
 <template>
-  <div class="margin">
+  <div class="margin cardtest">
     <div v-if="this.edit === false && allPostInfo.isAdmin === false">
       <h1 class="text-center">{{ allPostInfo.title }}</h1>
       <div class="card">
@@ -72,21 +72,15 @@
       </form>
     </div>
     <div>
-      <ul>
-        <li
-          class=" margin col-md-12"
-          v-for="item in this.allCommentInfo"
-          :key="item.id"
-        >
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title" id="item.id">{{ item.userName }}</h2>
-              <p class="card-text">{{ item.content }}</p>
-              <button v-if="item.userId === item.currentUser" class="btn btn-danger" :id="item.idComment" v-on:click="delete_Comment($event)">supprimer</button>
-            </div>
+      <div class=" margin col-md-12" v-for="item in this.allCommentInfo" :key="item.id">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title" id="item.id">{{ item.userName }}</h2>
+            <p class="card-text">{{ item.content }}</p>
+            <button v-if="item.userId === item.currentUser" class="btn btn-danger" :id="item.idComment" v-on:click="delete_Comment($event)">supprimer</button>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -248,5 +242,15 @@ ul {
 .margin {
   margin:auto;
   margin-top: 10%;
+}
+.cardtest {
+  width: 100%;
+  padding: 2%;
+  background-color: #d7d7d7;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+}
+.card {
+   background-color: #d3d3d3;
+   margin-top: 1%;
 }
 </style>

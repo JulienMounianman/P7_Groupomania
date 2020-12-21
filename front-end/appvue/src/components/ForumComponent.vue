@@ -1,9 +1,8 @@
 <template>
-   <div class="margin">
+   <div class="margin cardtest">
      <h1 class="text-center">Forum</h1>
-      <ul>
-      <li class="col-md-12" v-for="item in this.categoryisAdmin" :key="item.id">
-      <div class="card"  >     
+      <div class="col-md-12" v-for="item in this.categoryisAdmin" :key="item.id">
+      <div class="card">     
       <div class="card-body">
         <h2 class="card-title">{{item.name}}</h2>
         <p class="card-text">{{item.description}}</p>
@@ -12,8 +11,7 @@
         <button v-if="item.isAdmin === true" class="btn btn-danger" :id="item.id" v-on:click="deleteCategory($event)" > supprimer </button>
       </div>
       </div>
-      </li>
-      </ul>
+      </div>
      
     </div>
 </template>
@@ -73,5 +71,15 @@ ul {
 }
 button {
   margin: 1% 1% 1% 1%;
+}
+.cardtest {
+  width: 100%;
+  padding: 2%;
+  background-color: #d7d7d7;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+}
+.card {
+   background-color: #d3d3d3;
+   margin-top: 1%;
 }
 </style>
