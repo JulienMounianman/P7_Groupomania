@@ -82,6 +82,7 @@
             <div class="card-body">
               <h2 class="card-title" id="item.id">{{ item.userName }}</h2>
               <p class="card-text">{{ item.content }}</p>
+              <button v-if="item.userId === item.currentUser" class="btn btn-danger" :id="item.idComment" v-on:click="delete_Comment($event)">supprimer</button>
             </div>
           </div>
         </li>
@@ -107,7 +108,9 @@ export default {
       editContent: "",
       Allcategory: [],
       selected: false,
-      categoryId: 0
+      categoryId: 0,
+      deleteComment:false,
+      currentUser:0
     };
   },
   mounted() {
@@ -129,16 +132,17 @@ export default {
             createdAt: this.dataPost.createdAt,
             categoryId: this.dataPost.categoryId,
             userId: this.$store.getters.data.userId,
-          };
-        });
-      });
+          }
+        })
+      })
 
       this.$store.state.url = "http://localhost:3000/api/auth/profil/";
       this.$store
         .dispatch({ type: "getAll" })
         .then(() => {
-          if (this.dataPost.userId == this.$store.getters.data.id) {
-            this.edit = true;
+          this.currentUser = this.$store.getters.data.id
+          if (this.dataPost.userId == this.currentUser) {
+            this.edit = true      
           }
         })
         .then(() => {
@@ -171,11 +175,14 @@ export default {
             this.$store.state.id = e.userId;
             this.$store.state.url = "http://localhost:3000/api/auth/profil/";
             this.$store.dispatch({ type: "getById" }).then(() => {
-              const PostUser = new Object({
+              const Comment_user = new Object({
+                idComment:  e.id,
                 content: e.content,
                 userName: this.$store.getters.data.userName,
+                userId: e.userId,
+                currentUser: this.currentUser
               });
-              this.allCommentInfo.push(PostUser);
+              this.allCommentInfo.push(Comment_user);
               this.dataUser.push(this.$store.getters.data.userName);
             });
           });
@@ -215,9 +222,18 @@ export default {
               this.$store.state.categoryId = this.categoryId;
               this.$router.push({ name:'Post'})
         })
+      },
+      delete_Comment: function(event) {
+        this.$store.state.url = "http://localhost:3000/api/comment/"
+        this.$store.dispatch({
+          type: "delete",
+          id: event.currentTarget.id
+          }).then(() => {
+            this.$router.go()
+        })
       }
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
