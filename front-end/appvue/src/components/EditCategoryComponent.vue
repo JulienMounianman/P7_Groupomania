@@ -26,6 +26,7 @@ export default {
     };
   },
   mounted() {
+    this.$store.state.id = this.$store.state.categoryId
     this.$store.state.url  = "http://localhost:3000/api/category/"
     this.$store.dispatch({type: "getById"}).then(() => {
       this.name = this.$store.getters.data.name

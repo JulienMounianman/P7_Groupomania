@@ -9,6 +9,7 @@
         <p class="card-text">{{item.description}}</p>
         <button class="btn btn-primary" :id="item.id" v-on:click="redirect($event)" >Voir les articles</button>
         <button v-if="item.isAdmin === true" class="btn btn-warning" :id="item.id" v-on:click="editCategory($event)" > Editer </button>
+        <button v-if="item.isAdmin === true" class="btn btn-danger" :id="item.id" v-on:click="deleteCategory($event)" > supprimer </button>
       </div>
       </div>
       </li>
@@ -47,7 +48,16 @@ export default {
       editCategory: function(event) {
        this.$store.state.categoryId = event.currentTarget.id;
        this.$router.push({ name:'editCategory'});
-      }
+      },
+      deleteCategory: function(event) {
+      this.$store.state.url = "http://localhost:3000/api/category/"
+      this.$store.dispatch({
+        type: "delete",
+        id: event.currentTarget.id
+        }).then(() => {
+          this.$router.go()
+      })
+    }
     },
   }
 </script>

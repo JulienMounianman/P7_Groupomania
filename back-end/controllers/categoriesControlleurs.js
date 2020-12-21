@@ -39,15 +39,16 @@ exports.deleteCategory = (req, res) => {
     db.Post.findAll({ where: { categoryId: req.params.id } })
         .then((result) => {
             result.forEach(element => {
-                db.comment.destroy({ where: { postId: element.id } })
+                db.Comments.destroy({ where: { postId: element.id } })
                     .then(() => {
+                        db.Post.destroy({ where: { categoryId: req.params.id } })
+                        .then(() => {
+                            db.Category.destroy({ where: { id: req.params.id } })
+                                .then(() => res.status(200).json({ message: 'categorie supprimé !' }))
+                                .catch(error => res.status(400).json({ error }));
+                        })
                     });
             })
         })
-    db.Post.destroy({ where: { categoryId: req.params.id } })
-        .then(() => {
-            db.Category.destroy({ where: { id: req.params.id } })
-                .then(() => res.status(200).json({ message: 'categorie supprimé !' }))
-                .catch(error => res.status(400).json({ error }));
-        })
+   
 }

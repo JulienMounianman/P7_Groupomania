@@ -2,13 +2,14 @@
      <div class="margin">
        <h1 class="text-center">{{ this.categoryName }}</h1>
       <ul>
-      <li clas="col-md-12" v-for="item in listPost" :key="item.id">
+      <li clas="col-md-12" v-for="item in allPostInfo" :key="item.id">
       <div class="card">     
       <div class="card-body">
         <h2 class="card-title">{{item.title}}</h2>
         <p class="card-text">{{item.content}}</p>
-        <p>{{item.createdAt}}</p>
+        <p>{{item.createdAt}} By {{ item.userName}}</p>
         <button class="btn btn-info" v-on:click="redirect($event)" :id="item.id">Plus d'info</button>
+        <button v-if="item.userId == item.currentUserId || item.isAdmin == true" class="btn btn-info" v-on:click="deletePost($event)" :id="item.id">Supprimer</button>
       </div>
       </div>
       </li>
@@ -22,14 +23,11 @@ export default {
   data() {
     return {
       listPost: [],
-      categoryName:""
+      categoryName:"",
+      allPostInfo: []
     }
   }, 
   mounted() {
-    if(this.$store.getters.token == null) {
-      this.$router.push({ name:'Login'});
-    } 
-    else {
       this.$store.state.id = this.$store.getters.categoryId
       this.$store.state.url  = "http://localhost:3000/api/post/category/"
         this.$store.dispatch({type: "getById"}).then(() => {
@@ -40,12 +38,40 @@ export default {
            })
         }).catch(() => {
         }); 
-      }    
+
+      this.$store.state.url = "http://localhost:3000/api/auth/profil/";
+      this.$store
+        .dispatch({ type: "getAll" })
+        .then(() => {       
+          this.listPost.forEach(postInfo => {
+            const postObject = {
+              id: postInfo.id,
+              title: postInfo.title,
+              content: postInfo.content,
+              createdAt: postInfo.createdAt,
+              updatedAt: postInfo.updatedAt,
+              userId: postInfo.userId,
+              currentUserId: this.$store.getters.data.id,
+              userName: this.$store.getters.data.id === postInfo.userId ? this.$store.getters.data.userName : "test",
+              isAdmin: this.$store.getters.isAdmin
+            }
+            this.allPostInfo.push(postObject)
+          });
+        })    
     },
     methods: {
       redirect: function(event) {
         this.$store.state.postId = event.currentTarget.id;
         this.$router.push({ name:'Comment'});
+      },
+       deletePost: function(event) {
+        this.$store.state.url = "http://localhost:3000/api/post/"
+        this.$store.dispatch({
+          type: "delete",
+          id: event.currentTarget.id
+          }).then(() => {
+            this.$router.go()
+        })
       }
     }
   }

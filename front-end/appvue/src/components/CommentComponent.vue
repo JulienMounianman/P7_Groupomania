@@ -1,6 +1,6 @@
 <template>
   <div class="margin">
-    <div v-if="this.edit === false">
+    <div v-if="this.edit === false && allPostInfo.isAdmin === false">
       <h1 class="text-center">{{ allPostInfo.title }}</h1>
       <div class="card">
         <div class="card-body">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.edit === true">
+    <div v-if="this.edit === true || allPostInfo.isAdmin === true">
       <h1 class="text-center">{{ allPostInfo.title }}</h1>
       <form class="col-md-12" @submit.prevent="editPost">
         <div class="form-group">
@@ -125,6 +125,7 @@ export default {
         this.$store.state.url = "http://localhost:3000/api/auth/profil/";
         this.$store.dispatch({ type: "getById" }).then(() => {
           this.allPostInfo = {
+            id: this.dataPost.id,
             title: this.dataPost.title,
             content: this.dataPost.content,
             userName: this.$store.getters.data.userName,
@@ -132,6 +133,7 @@ export default {
             createdAt: this.dataPost.createdAt,
             categoryId: this.dataPost.categoryId,
             userId: this.$store.getters.data.userId,
+            isAdmin: this.$store.getters.isAdmin
           }
         })
       })
@@ -146,7 +148,7 @@ export default {
           }
         })
         .then(() => {
-          if (this.edit === true) {
+          if (this.edit === true || this.$store.getters.data.isAdmin === true) {
             this.$store.state.url = "http://localhost:3000/api/category/";
             this.$store.dispatch({ type: "getAll" })
               .then(() => {
@@ -217,6 +219,7 @@ export default {
         type: "editPost", 
         title: this.allPostInfo.title,
         content: this.allPostInfo.content,
+        postId: this.allPostInfo.id,
         categoryId: this.categoryId
         }).then(() => {
               this.$store.state.categoryId = this.categoryId;

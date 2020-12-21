@@ -38,7 +38,7 @@ exports.udaptePost = (req, res) => {
                 title: req.body.title,
                 content: req.body.content,
                 userId: userId,
-                categoryId: post.id
+                categoryId: req.body.categoryId
             })
                 .then(() => res.status(200).json({ message: 'post modifié !' }))
                 .catch(error => res.status(400).json({ error }));
