@@ -4,14 +4,7 @@
     <form class="col-md-12" @submit.prevent="createPost">
       <div class="form-group">
         <label for="title">Title:</label>
-        <input
-          class="form-control"
-          type="text"
-          id="title"
-          name="title"
-          v-model="title"
-          required
-        />
+        <input class="form-control"  type="text" id="title"  name="title" v-model="title" required />
       </div>
       <div class="form-group">
         <label for="content">Contenu:</label>

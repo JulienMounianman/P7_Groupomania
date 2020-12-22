@@ -18,38 +18,16 @@
       <form class="col-md-12" @submit.prevent="editPost">
         <div class="form-group">
           <label for="title">Title:</label>
-          <input
-            class="form-control"
-            type="text"
-            id="title"
-            name="title"
-            v-model="allPostInfo.title"
-            required
-          />
+          <input class="form-control" type="text" id="title" name="title"  v-model="allPostInfo.title"  required />
         </div>
         <div class="form-group">
           <label for="content">Contenu:</label>
-          <textarea
-            v-model="allPostInfo.content"
-            class="form-control"
-            id="content"
-            name="content"
-            rows="3"
-          ></textarea>
+          <textarea  v-model="allPostInfo.content" class="form-control" id="content" name="content" rows="3" ></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlSelect1">Categorie:</label>
-          <select
-            class="form-control"
-            id="exampleFormControlSelect1"
-            @change="category($event)"
-          >
-            <option
-              v-for="item in this.Allcategory"
-              :key="item.id"
-              :id="item.id" 
-              >{{ item.name }}</option
-            >
+          <select class="form-control" id="exampleFormControlSelect1" @change="category($event)" >
+            <option  v-for="item in this.Allcategory"  :key="item.id"  :id="item.id"  >{{ item.name }}</option>
           </select>
         </div>
         <input type="submit" class="btn btn-secondary" value="Editer ce Post" />
@@ -60,13 +38,7 @@
       <form class="text-center" @submit.prevent="Postcomment">
         <div>
           <label for="comment">Ecrire un commentaire:</label><br />
-          <textarea
-            class="margin"
-            name="comment"
-            cols="50"
-            rows="5"
-            v-model="content"
-          ></textarea>
+          <textarea class="margin" name="comment" cols="50" rows="5" v-model="content"></textarea>
         </div>
         <input type="submit" class="btn btn-secondary" value="Envoyer" />
       </form>
