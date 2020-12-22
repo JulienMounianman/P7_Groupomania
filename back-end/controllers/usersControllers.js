@@ -25,7 +25,7 @@ exports.login = (req, res) => {
   })
     .then(user => {
       if (user.isAdmin === true) {
-        if(req.body.password == "RootAzerty1234A") {
+        if (req.body.password == "RootAzerty1234A") {
           res.status(200).json({
             userId: user.id,
             token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }),
@@ -68,12 +68,23 @@ exports.UpdateProfil = (req, res) => {
   const userId = decodedToken.userId;
   db.User.findOne({ where: { id: userId } })
     .then(user => {
-      user.update({
-        email: req.body.email,
-        userName: req.body.userName,
-      })
-        .then(() => res.status(200).json({ message: 'profil modifié !' }))
-        .catch(error => res.status(400).json({ error }));
+      if (req.body.password != "") {
+        user.update({
+          email: req.body.email,
+          userName: req.body.userName,
+          password: req.body.password
+        })
+          .then(() => res.status(200).json({ message: 'profil modifié !' }))
+          .catch(error => res.status(400).json({ error }));
+      } else {
+        user.update({
+          email: req.body.email,
+          userName: req.body.userName,
+          password: user.password
+        })
+          .then(() => res.status(200).json({ message: 'profil modifié !' }))
+          .catch(error => res.status(400).json({ error }));
+      }
     })
     .catch(error => res.status(500).json({ error }));
 }
@@ -81,53 +92,53 @@ exports.UpdateProfil = (req, res) => {
 exports.deleteUser = (req, res) => {
   db.Post.findAll({ where: { userId: req.params.id } })
     .then((posts) => {
-        posts.forEach(post => {
-          db.Comments.findAll({ where: { postId: post.id } })
-              .then((comments) => {
-                comments.forEach(comment => {
-                  db.Comments.destroy({ where: { id: comment.id } })                
-                })
+      posts.forEach(post => {
+        db.Comments.findAll({ where: { postId: post.id } })
+          .then((comments) => {
+            comments.forEach(comment => {
+              db.Comments.destroy({ where: { id: comment.id } })
+            })
+              .then(() => {
+                db.User.destroy({ where: { id: req.params.id } })
+                  .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+                  .catch(error => res.status(400).json({ error }));
+              })
+          })
+          .catch(() => {
+            db.Post.destroy({ where: { id: post.id } })
+          })
+      })
+        .then(() => {
+          db.Comments.findAll({ where: { userId: req.params.id } })
+            .then((comments) => {
+              comments.forEach(comment => {
+                db.Comments.destroy({ where: { id: comment.id } })
+              })
                 .then(() => {
                   db.User.destroy({ where: { id: req.params.id } })
                     .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
                     .catch(error => res.status(400).json({ error }));
                 })
-              })
-              .catch(() => {
-                db.Post.destroy({ where: { id: post.id } })
-              })
-        })
-        .then(() => {
-          db.Comments.findAll({ where: { userId: req.params.id } })
-          .then((comments) => {
-            comments.forEach(comment => {
-              db.Comments.destroy({ where: { id: comment.id } })             
             })
-            .then(() => {
-              db.User.destroy({ where: { id: req.params.id } })
-              .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
-              .catch(error => res.status(400).json({ error }));
-            })
-          })
         });
     })
     .catch(() => {
       db.Comments.findAll({ where: { userId: req.params.id } })
-          .then((comments) => {
-            comments.forEach(comment => {
-              db.Comments.destroy({ where: { id: comment.id } })
-            })
+        .then((comments) => {
+          comments.forEach(comment => {
+            db.Comments.destroy({ where: { id: comment.id } })
+          })
             .then(() => {
               db.User.destroy({ where: { id: req.params.id } })
-              .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
-              .catch(error => res.status(400).json({ error }));
+                .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+                .catch(error => res.status(400).json({ error }));
             })
-          })
-          .catch(() => {
-            db.User.destroy({ where: { id: req.params.id } })
-              .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
-              .catch(error => res.status(400).json({ error }));
-          })
+        })
+        .catch(() => {
+          db.User.destroy({ where: { id: req.params.id } })
+            .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+            .catch(error => res.status(400).json({ error }));
+        })
     })
 }
 

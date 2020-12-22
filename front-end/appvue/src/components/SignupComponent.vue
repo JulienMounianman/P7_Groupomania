@@ -16,6 +16,9 @@
         </div>
         <input type="submit" class="btn btn-secondary" value="s'inscrire" />
       </form>
+      <div class="alert alert-danger"  v-if="this.$store.state.error != ''" role="alert">
+        {{ this.$store.state.error }}
+      </div>
     </div>
 </template>
 
@@ -27,15 +30,10 @@ export default {
       userName: '',
       email:'',
       password: '',
+
     }
   },
   computed: {
-    statusCode: function () {
-      return this.$store.getters.statusCode
-    },
-     token: function () {
-      return this.$store.getters.token
-    }
   },
   methods: {
     signup () {

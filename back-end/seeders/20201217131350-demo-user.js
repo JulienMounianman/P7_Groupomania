@@ -1,13 +1,7 @@
 'use strict';
   module.exports = {
   up: async (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('Users', [{
-        userName: 'Julien',
-        email: 'julien@email.com',
-        password: 'azerty1234A!',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
+      return queryInterface.bulkInsert('Users', [
       {
         userName: 'admin',
         email: 'admin@admin.com',
@@ -24,8 +18,8 @@
         updatedAt: new Date()
       },
       {
-        userName: 'macron',
-        email: 'macron@macron.com',
+        userName: 'sasha',
+        email: 'sasha@sasha.com',
         password: 'azerty1234A!',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -47,6 +41,104 @@
       {
         userName: 'elton',
         email: 'elton@elton.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'test',
+        email: 'test@test.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Gabriel',
+        email: 'Gabriel@Gabriel.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Léo',
+        email: 'Léo@Léo.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Raphaël',
+        email: 'Raphaël@Raphaël.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Louis',
+        email: 'Louis@Louis.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Lucas',
+        email: 'Lucas@Lucas.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Adam',
+        email: 'Adam@Adam.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Jules',
+        email: 'Jules@Jules.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Hugo',
+        email: 'Hugo@Hugo.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Maël',
+        email: 'Maël@Maël.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Liam',
+        email: 'Liam@Liam.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Noah',
+        email: 'Noah@Noah.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Paul',
+        email: 'Paul@Paul.com',
+        password: 'azerty1234A!',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Ethan',
+        email: 'Ethan@Ethan.com',
         password: 'azerty1234A!',
         createdAt: new Date(),
         updatedAt: new Date()

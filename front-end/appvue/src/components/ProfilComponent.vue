@@ -7,13 +7,19 @@
                     <input type="text" class="form-control" id="userName" name="userName" v-model="userName" required>
                 </div>
                 <div>
-                    <label for="email" class="form-label">e-mail</label><br>
+                    <label for="email" class="form-label">E-mail</label><br>
                     <input type="email" class="form-control" id="email" v-model="email" name="email" required>
                 </div>
-                <br>
+                <div>
+                    <label for="password" class="form-label">Nouveau mot de passe</label><br>
+                    <input type="password" class="form-control" id="password" v-model="password" name="password">
+                </div>
                 <input type="submit"  class="btn btn-secondary" value="Editer" />
-                <div v-if="this.edit" class="alert alert-success" role="alert">
+                <div v-if="this.edit == true" class="alert alert-success" role="alert">
                     Le Profil a été edité !
+                </div>
+                  <div class="alert alert-danger"  v-if="this.$store.state.error != ''" role="alert">
+                    {{ this.$store.state.error }}
                 </div>
             </form>
             <br>
@@ -33,7 +39,9 @@ export default {
       edit: false
     }
   }, 
-  mounted() {         
+  mounted() {       
+    this.$store.state.error = "";
+    this.$store.state.statusCodeResponse = 0;  
     this.$store.state.url  = "http://localhost:3000/api/auth/profil"
     this.$store.dispatch({type: "getAll"}).then(() => {
         this.userName = this.$store.getters.data.userName;
@@ -43,15 +51,20 @@ export default {
     },
     methods: {
         editProfil() {
+            this.$store.state.error = "";
+            this.$store.state.statusCodeResponse = 0;
             this.$store.dispatch({
             type: "editProfil",
             userName: this.userName,
-            email: this.email
+            email: this.email,
+            password: this.password
             })
             .then(() => {
-                console.log(this.$store.getters.statusCode);
                 if(this.$store.getters.statusCode == 200) {
-                    this.edit = true;
+                  this.edit = true;
+                    setTimeout(() => {
+                      this.edit = false;
+                    }, 3000);
                 }
             })
         },

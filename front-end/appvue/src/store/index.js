@@ -82,7 +82,7 @@ export default new Vuex.Store({
           commit('setStatus', response)
         })
         .catch(error => { 
-          console.log(error);
+          commit('setError', error)
         })
     },
     login ({ commit }, {password,email}) {
@@ -109,8 +109,7 @@ export default new Vuex.Store({
             commit('setDataStatus', response)
           })
           .catch(error => {
-
-            console.log(error);
+            commit('setError', error)
         })
     },
     Postcomment ({commit, state }, {content}) {
@@ -125,7 +124,7 @@ export default new Vuex.Store({
             commit('setStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error)
         })
     },
     getAll ({commit, state }) {
@@ -140,12 +139,12 @@ export default new Vuex.Store({
             commit('setDataStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error)
         })
     },
-    editProfil ({commit, state }, {userName, email}) {
+    editProfil ({commit, state }, {userName, email, password}) {
       return axios
-      .put(state.url,{userName: userName, email: email },
+      .put(state.url,{userName: userName, email: email, password },
         {
           headers: {
           'Authorization': 'Bearer ' + state.token
@@ -155,7 +154,7 @@ export default new Vuex.Store({
         commit('setStatus', response)
       })
       .catch(error => {
-        console.log(error);
+        commit('setError', error);
     })
     },
     createPost ({commit, state }, {title, content, categoryId}) {
@@ -170,7 +169,7 @@ export default new Vuex.Store({
             commit('setStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error)
         })
     },
     editPost ({commit, state }, {title, content, postId, categoryId}) {
@@ -185,7 +184,7 @@ export default new Vuex.Store({
             commit('setStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error)
         })
     },
     createCategory ({commit, state }, {name, description}) {
@@ -200,7 +199,7 @@ export default new Vuex.Store({
             commit('setStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error);
         })
     },
     editCategory ({commit, state }, {name, description, id}) {
@@ -215,7 +214,7 @@ export default new Vuex.Store({
             commit('setStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error)
         })
     },
     delete ({commit,state}, { id } ) {
@@ -230,7 +229,7 @@ export default new Vuex.Store({
             commit('setStatus', response)
           })
           .catch(error => {
-            console.log(error);
+            commit('setError', error)
         })
     }
   },

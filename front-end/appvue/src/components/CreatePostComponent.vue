@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         <label for="content">Contenu:</label>
-      <textarea v-model="content" class="form-control" id="content" name="content" rows="3"></textarea>
+      <textarea v-model="content" class="form-control" id="content" name="content" rows="3" required></textarea>
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Categorie:</label>

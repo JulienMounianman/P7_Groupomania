@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         <label for="content">Description:</label>
-      <textarea v-model="description" class="form-control" id="description" name="description" rows="5"></textarea>
+      <textarea v-model="description" class="form-control" id="description" name="description" rows="5" required></textarea>
       </div>
       <input type="submit" class="btn btn-secondary" value="Editer cette catégorie" />
     </form>
